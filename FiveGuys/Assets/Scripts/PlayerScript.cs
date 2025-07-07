@@ -14,6 +14,9 @@ public class PlayerScript : MonoBehaviour
     private InputAction moveAction;
     private Vector2 moveAmount;
 
+    [SerializeField] private bool isControlled;
+        public bool IsControlled { get { return isControlled; }  set { isControlled = value; } }
+
     void Awake()
     {
         moveAction = input.FindAction("Move");
@@ -22,23 +25,26 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
-        playerState = PlayerState.Controlled;
+        playerState = PlayerState.Working;
     }
     
     void Update()
     {
         DebugSwitchState();
+        SwitchState();
 
         switch(playerState)
         {
             case PlayerState.Working:
                 Debug.Log("im working");
+                isControlled = false;
                 break;
             case PlayerState.Distracted:
                 Debug.Log("im distracted");
+                isControlled = false;
                 break;
             case PlayerState.Controlled:
-            Debug.Log("im controlled");
+                Debug.Log("im controlled");
                 PossessedMovement();
                 break;
         }
@@ -57,6 +63,15 @@ public class PlayerScript : MonoBehaviour
         if (Keyboard.current.digit3Key.wasPressedThisFrame)
         {
             playerState = PlayerState.Controlled;
+        }
+    }
+
+    void SwitchState()
+    {
+        if (playerState == PlayerState.Distracted && isControlled)
+        {
+            playerState = PlayerState.Controlled;
+            isControlled = false;
         }
     }
 
