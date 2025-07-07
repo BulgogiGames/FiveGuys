@@ -7,7 +7,6 @@ public class PlayerScript : MonoBehaviour
     private enum PlayerState {Working, Distracted, Controlled}
     private PlayerState playerState;
 
-
     [Header("Player Movement")]
     [SerializeField] private NavMeshAgent player;
     [SerializeField] private InputActionAsset input;
@@ -16,6 +15,11 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] private bool isControlled;
         public bool IsControlled { get { return isControlled; }  set { isControlled = value; } }
+
+    [Header("Animation")]
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private SpriteRenderer[] playerSprites;
+        public SpriteRenderer[] PlayerSprites => playerSprites;
 
     void Awake()
     {
