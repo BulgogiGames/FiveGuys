@@ -4,12 +4,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
-    private enum PlayerState {Working, Distracted, Moving}
+    private enum PlayerState { Working, Distracted, Moving }
     [SerializeField] private PlayerState playerState;
 
     [Header("Character Navigation")]
     [SerializeField] private Transform target;
     [SerializeField] private Transform workingStation;
+    [SerializeField] private LayerMask stationLayer;
 
     [Header("Player Movement")]
     [SerializeField] private NavMeshAgent player;
@@ -18,7 +19,7 @@ public class PlayerScript : MonoBehaviour
     private Vector2 moveAmount;
 
     [SerializeField] private bool isControlled;
-        public bool IsControlled { get { return isControlled; }  set { isControlled = value; } }
+    public bool IsControlled { get { return isControlled; } set { isControlled = value; } }
 
     [SerializeField] private CharacterStateDebug DebugText;
 
@@ -41,32 +42,32 @@ public class PlayerScript : MonoBehaviour
         distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
         playerState = PlayerState.Working;
     }
-    
+
     void Update()
     {
         DebugSwitchState();
 
         if (playerState != lastState)
         {
-            if(DebugText != null)
+            if (DebugText != null)
             {
                 UpdateDebugText(playerState.ToString());
             }
-            
+
             lastState = playerState;
         }
 
-        switch(playerState)
+        switch (playerState)
         {
             case PlayerState.Working:
                 player.isStopped = true;
-                
-                if(distractionCountDown > 0)
+
+                if (distractionCountDown > 0)
                 {
                     distractionCountDown -= Time.deltaTime;
                 }
 
-                if(distractionCountDown <= 0)
+                if (distractionCountDown <= 0)
                 {
                     playerState = PlayerState.Distracted;
                 }
@@ -79,6 +80,7 @@ public class PlayerScript : MonoBehaviour
                 break;
 
             case PlayerState.Moving:
+                PossessedMovement();
                 break;
         }
     }
@@ -104,26 +106,43 @@ public class PlayerScript : MonoBehaviour
         Vector3 scaledMove = player.speed * Time.deltaTime * new Vector3(moveAmount.x, 0, moveAmount.y);
 
         player.Move(scaledMove);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void GotClicked()
     {
         player.isStopped = true;
+        player.ResetPath();
 
-        transform.position = workingStation.position + new Vector3(0,0.94f,0);
 
-        if(DebugText != null)
+        if (DebugText != null)
         {
             UpdateDebugText("Working");
         }
 
         distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
 
-        playerState = PlayerState.Working;
+        playerState = PlayerState.Moving;
     }
 
     public void UpdateDebugText(string update)
     {
         DebugText.UpdateText(update);
+    }
+
+    public void GetBackToWork()
+    {
+        //Get the mouse back
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        //Place the player at the working station
+        transform.position = workingStation.position;
+        player.isStopped = true;
+
+        //Start Working again
+        playerState = PlayerState.Working;
     }
 }
