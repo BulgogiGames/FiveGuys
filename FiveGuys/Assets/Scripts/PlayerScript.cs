@@ -22,6 +22,12 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField] private CharacterStateDebug DebugText;
 
+    [Header("Distraction Stuff")]
+    [SerializeField] private float distractionCountDown;
+
+    [SerializeField] private float minWaitForDistraction;
+    [SerializeField] private float maxWaitForDistraction;
+
     //Debug Stuff
     private PlayerState lastState;
     void Awake()
@@ -32,6 +38,7 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+        distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
         playerState = PlayerState.Working;
     }
     
@@ -53,7 +60,17 @@ public class PlayerScript : MonoBehaviour
         {
             case PlayerState.Working:
                 player.isStopped = true;
-                            
+                
+                if(distractionCountDown > 0)
+                {
+                    distractionCountDown -= Time.deltaTime;
+                }
+
+                if(distractionCountDown <= 0)
+                {
+                    playerState = PlayerState.Distracted;
+                }
+
                 break;
 
             case PlayerState.Distracted:
@@ -88,14 +105,18 @@ public class PlayerScript : MonoBehaviour
 
     public void GotClicked()
     {
-        player.isStopped = true;;
-        playerState = PlayerState.Working;
+        player.isStopped = true;
+
         transform.position = workingStation.position + new Vector3(0,0.94f,0);
 
         if(DebugText != null)
         {
             UpdateDebugText("Working");
         }
+
+        distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
+
+        playerState = PlayerState.Working;
     }
 
     public void UpdateDebugText(string update)
