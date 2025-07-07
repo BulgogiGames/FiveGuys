@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
-    private enum PlayerState {Working, Distracted}
+    private enum PlayerState {Working, Distracted, Moving}
     [SerializeField] private PlayerState playerState;
 
     [Header("Character Navigation")]
@@ -76,6 +76,9 @@ public class PlayerScript : MonoBehaviour
             case PlayerState.Distracted:
                 player.SetDestination(target.position);
                 player.isStopped = false;
+                break;
+
+            case PlayerState.Moving:
                 break;
         }
     }
