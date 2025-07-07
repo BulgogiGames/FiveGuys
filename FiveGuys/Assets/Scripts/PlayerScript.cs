@@ -4,9 +4,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
-    private enum PlayerState {Working, Distracted, Controlled}
-    private PlayerState playerState;
+    private enum PlayerState {Working, Distracted}
+    [SerializeField] private PlayerState playerState;
 
+    [Header("Character Navigation")]
+    [SerializeField] private Transform target;
+    [SerializeField] private Transform workingStation;
 
     [Header("Player Movement")]
     [SerializeField] private NavMeshAgent player;
@@ -17,6 +20,10 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private bool isControlled;
         public bool IsControlled { get { return isControlled; }  set { isControlled = value; } }
 
+    [SerializeField] private CharacterStateDebug DebugText;
+
+    //Debug Stuff
+    private PlayerState lastState;
     void Awake()
     {
         moveAction = input.FindAction("Move");
@@ -31,21 +38,27 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         DebugSwitchState();
-        SwitchState();
+
+        if (playerState != lastState)
+        {
+            if(DebugText != null)
+            {
+                UpdateDebugText(playerState.ToString());
+            }
+            
+            lastState = playerState;
+        }
 
         switch(playerState)
         {
             case PlayerState.Working:
-                Debug.Log("im working");
-                isControlled = false;
+                player.isStopped = true;
+                            
                 break;
+
             case PlayerState.Distracted:
-                Debug.Log("im distracted");
-                isControlled = false;
-                break;
-            case PlayerState.Controlled:
-                Debug.Log("im controlled");
-                PossessedMovement();
+                player.SetDestination(target.position);
+                player.isStopped = false;
                 break;
         }
     }
@@ -60,20 +73,8 @@ public class PlayerScript : MonoBehaviour
         {
             playerState = PlayerState.Distracted;
         }
-        if (Keyboard.current.digit3Key.wasPressedThisFrame)
-        {
-            playerState = PlayerState.Controlled;
-        }
     }
 
-    void SwitchState()
-    {
-        if (playerState == PlayerState.Distracted && isControlled)
-        {
-            playerState = PlayerState.Controlled;
-            isControlled = false;
-        }
-    }
 
 
     void PossessedMovement()
@@ -83,5 +84,22 @@ public class PlayerScript : MonoBehaviour
         Vector3 scaledMove = player.speed * Time.deltaTime * new Vector3(moveAmount.x, 0, moveAmount.y);
 
         player.Move(scaledMove);
+    }
+
+    public void GotClicked()
+    {
+        player.isStopped = true;;
+        playerState = PlayerState.Working;
+        transform.position = workingStation.position + new Vector3(0,0.94f,0);
+
+        if(DebugText != null)
+        {
+            UpdateDebugText("Working");
+        }
+    }
+
+    public void UpdateDebugText(string update)
+    {
+        DebugText.UpdateText(update);
     }
 }

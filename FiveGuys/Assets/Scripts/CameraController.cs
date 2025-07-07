@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
             {
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
-                    hit.transform.GetComponent<PlayerScript>().IsControlled = true;
+                    hit.transform.GetComponent<PlayerScript>().GotClicked();
                     Debug.Log("im hitting");
                 }
             }
