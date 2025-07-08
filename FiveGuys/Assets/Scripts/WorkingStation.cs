@@ -2,16 +2,35 @@ using UnityEngine;
 
 public class WorkingStation : MonoBehaviour
 {
-    [SerializeField] private PlayerScript owner;
+    [Header("Station Variables")]
     [SerializeField] private LayerMask playerLayer;
+
+    [Header("Working Variables")]
+    [SerializeField] private PlayerScript owner;
+
+    [Header("Bathroom Variables")]
+    [SerializeField] private Transform hidingZone;
+    [SerializeField] private bool isBathroom;
+    [SerializeField] private float bathroomStayTime;
 
     void OnTriggerEnter(Collider other)
     {
         GameObject collided = other.gameObject;
 
-        if (playerLayer.Contains(collided) && collided == owner.gameObject)
+        if(owner != null)
         {
-            owner.GetBackToWork();
+            if(playerLayer.Contains(collided) && collided == owner.gameObject && !isBathroom)
+            {
+                owner.GetBackToWork();
+            }
+        }
+        
+        if(isBathroom && collided.transform.GetComponent<PlayerScript>().HasToShit())
+        {
+            collided.transform.position = hidingZone.position;
+
+            collided.transform.GetComponent<PlayerScript>().GoneBathroom();
+            collided.transform.GetComponent<PlayerScript>().EnteredBathroom(transform, bathroomStayTime);
         }
     }
 }

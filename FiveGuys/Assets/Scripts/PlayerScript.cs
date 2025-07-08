@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerScript : MonoBehaviour
 {
-    private enum PlayerState { Working, Distracted, Moving }
+    private enum PlayerState { Working, Distracted, Moving, Shitting, ClockingIn }
     [SerializeField] private PlayerState playerState;
 
     [Header("Character Navigation")]
@@ -24,10 +25,17 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private CharacterStateDebug DebugText;
 
     [Header("Distraction Stuff")]
+    [SerializeField] private List<Transform> possibleActivities;
     [SerializeField] private float distractionCountDown;
 
     [SerializeField] private float minWaitForDistraction;
     [SerializeField] private float maxWaitForDistraction;
+
+    [SerializeField] private bool hasChosenDistraction;
+
+    [SerializeField] private bool hasToShit;
+    [SerializeField] private float bathroomCountDown;
+    [SerializeField] private Transform bathroomEntrance;
 
     //Debug Stuff
     private PlayerState lastState;
@@ -75,12 +83,47 @@ public class PlayerScript : MonoBehaviour
                 break;
 
             case PlayerState.Distracted:
+                //Choose distraction
+                if(!hasChosenDistraction)
+                {
+                    int chosenDistraction = Random.Range(0, possibleActivities.Count);
+
+                    if(chosenDistraction == 1)
+                    {
+                        hasToShit = true;
+                    }
+
+                    target = possibleActivities[chosenDistraction];
+                    hasChosenDistraction = true;
+                }
+                
                 player.SetDestination(target.position);
                 player.isStopped = false;
                 break;
 
             case PlayerState.Moving:
                 PossessedMovement();
+                break;
+
+            case PlayerState.Shitting:
+                player.isStopped = true;
+                
+                if(bathroomCountDown > 0)
+                {
+                    bathroomCountDown -= Time.deltaTime;
+                }
+
+                if(bathroomCountDown <= 0)
+                {
+                    transform.position = new Vector3(bathroomEntrance.position.x, 1, bathroomEntrance.position.z);
+
+                    playerState = PlayerState.ClockingIn;
+                }
+                break;
+
+            case PlayerState.ClockingIn:
+                player.isStopped = false;
+                player.SetDestination(workingStation.position);
                 break;
         }
     }
@@ -122,7 +165,7 @@ public class PlayerScript : MonoBehaviour
             UpdateDebugText("Working");
         }
 
-        distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
+        
 
         playerState = PlayerState.Moving;
     }
@@ -134,6 +177,8 @@ public class PlayerScript : MonoBehaviour
 
     public void GetBackToWork()
     {
+        distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
+
         //Get the mouse back
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -142,7 +187,28 @@ public class PlayerScript : MonoBehaviour
         transform.position = workingStation.position;
         player.isStopped = true;
 
+        hasChosenDistraction = false;
+
         //Start Working again
         playerState = PlayerState.Working;
+    }
+
+    public void GoneBathroom()
+    {
+        playerState = PlayerState.Shitting;
+    }
+
+    public bool HasToShit()
+    {
+        return hasToShit;
+    }
+
+    public void EnteredBathroom(Transform bathroomDoor, float bathroomTime)
+    {
+        bathroomEntrance = bathroomDoor;
+
+        bathroomCountDown = bathroomTime;
+
+        hasToShit = false;
     }
 }

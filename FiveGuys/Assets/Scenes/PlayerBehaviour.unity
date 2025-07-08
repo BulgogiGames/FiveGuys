@@ -153,6 +153,7 @@ Transform:
   - {fileID: 1500809998}
   - {fileID: 1677181081}
   - {fileID: 89191950}
+  - {fileID: 352220415}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &47582083
@@ -870,9 +871,16 @@ MonoBehaviour:
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   isControlled: 0
   DebugText: {fileID: 1033460506}
+  possibleActivities:
+  - {fileID: 734163810}
+  - {fileID: 1864535358}
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
 --- !u!54 &160690930
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1131,10 +1139,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edab2b94dfce9354daa2bb2b7ead6234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 1900683839}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  owner: {fileID: 1900683839}
+  hidingZone: {fileID: 0}
+  isBathroom: 0
+  bathroomStayTime: 0
 --- !u!1 &274233915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1419,137 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &352220414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 352220415}
+  - component: {fileID: 352220419}
+  - component: {fileID: 352220418}
+  - component: {fileID: 352220417}
+  - component: {fileID: 352220416}
+  m_Layer: 6
+  m_Name: Bathroom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &352220415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352220414}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7, y: 0.5, z: 25}
+  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1864535358}
+  - {fileID: 2009617167}
+  m_Father: {fileID: 36817939}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &352220416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352220414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!65 &352220417
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352220414}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &352220418
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352220414}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: dd297fecbf6b78442b88b8910d86df6d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &352220419
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352220414}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &395929599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,9 +1818,16 @@ MonoBehaviour:
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   isControlled: 0
   DebugText: {fileID: 1143623421}
+  possibleActivities:
+  - {fileID: 1528229629}
+  - {fileID: 1864535358}
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
 --- !u!54 &461600033
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1940,9 +2089,16 @@ MonoBehaviour:
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   isControlled: 0
   DebugText: {fileID: 316782422}
+  possibleActivities:
+  - {fileID: 1865076788}
+  - {fileID: 1864535358}
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
 --- !u!54 &463154542
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2128,9 +2284,16 @@ MonoBehaviour:
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   isControlled: 0
   DebugText: {fileID: 795452353}
+  possibleActivities:
+  - {fileID: 912144694}
+  - {fileID: 1864535358}
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
 --- !u!54 &574237586
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3809,10 +3972,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edab2b94dfce9354daa2bb2b7ead6234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 160690929}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  owner: {fileID: 160690929}
+  hidingZone: {fileID: 0}
+  isBathroom: 0
+  bathroomStayTime: 0
 --- !u!1 &1028164812
 GameObject:
   m_ObjectHideFlags: 0
@@ -5371,10 +5537,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edab2b94dfce9354daa2bb2b7ead6234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 461600032}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  owner: {fileID: 461600032}
+  hidingZone: {fileID: 0}
+  isBathroom: 0
+  bathroomStayTime: 0
 --- !u!1 &1712401004
 GameObject:
   m_ObjectHideFlags: 0
@@ -5532,10 +5701,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edab2b94dfce9354daa2bb2b7ead6234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 574237585}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  owner: {fileID: 574237585}
+  hidingZone: {fileID: 0}
+  isBathroom: 0
+  bathroomStayTime: 0
 --- !u!1 &1836116594
 GameObject:
   m_ObjectHideFlags: 0
@@ -5572,6 +5744,155 @@ Transform:
   - {fileID: 463154535}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1864535357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1864535358}
+  - component: {fileID: 1864535362}
+  - component: {fileID: 1864535361}
+  - component: {fileID: 1864535360}
+  - component: {fileID: 1864535359}
+  - component: {fileID: 1864535363}
+  m_Layer: 0
+  m_Name: BathroomZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1864535358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864535357}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0020000339, y: -0.44, z: -0.6120001}
+  m_LocalScale: {x: 0.2, y: 0.025, z: 0.2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 352220415}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1864535359
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864535357}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.94, y: 10.93, z: 2.53}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &1864535360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864535357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!23 &1864535361
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864535357}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ce7341f795894534c82538aa4b62e5ce, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1864535362
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864535357}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1864535363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864535357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edab2b94dfce9354daa2bb2b7ead6234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  owner: {fileID: 0}
+  hidingZone: {fileID: 2009617167}
+  isBathroom: 1
+  bathroomStayTime: 5
 --- !u!1 &1865076787
 GameObject:
   m_ObjectHideFlags: 0
@@ -5861,9 +6182,16 @@ MonoBehaviour:
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   isControlled: 0
   DebugText: {fileID: 674775011}
+  possibleActivities:
+  - {fileID: 1617322841}
+  - {fileID: 1864535358}
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
 --- !u!54 &1900683840
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6012,10 +6340,120 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edab2b94dfce9354daa2bb2b7ead6234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 463154541}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  owner: {fileID: 463154541}
+  hidingZone: {fileID: 0}
+  isBathroom: 0
+  bathroomStayTime: 0
+--- !u!1 &2009617166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2009617167}
+  - component: {fileID: 2009617170}
+  - component: {fileID: 2009617169}
+  - component: {fileID: 2009617168}
+  m_Layer: 0
+  m_Name: HidingZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2009617167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009617166}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.598, y: -0.44, z: 7.1880007}
+  m_LocalScale: {x: 0.2, y: 0.025, z: 0.2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 352220415}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2009617168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009617166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!23 &2009617169
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009617166}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ce7341f795894534c82538aa4b62e5ce, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2009617170
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009617166}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2045755460
 GameObject:
   m_ObjectHideFlags: 0
