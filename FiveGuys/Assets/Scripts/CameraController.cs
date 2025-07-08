@@ -21,15 +21,18 @@ public class CameraController : MonoBehaviour
 
     [Header("zoom stuff")]
         [SerializeField] private float zoomSpeed;
-        private float zoomNum;
         [SerializeField] private float minHeight, maxHeight;
+        private Vector3 zoomDirection;
+        private float zoomNum;
+        
         private InputAction mouseZoomAction;
 
     [Header("movement stuff")]
-        [SerializeField] private LayerMask borderLayer; 
         [SerializeField] private float moveSpeed;
+        [SerializeField] private BoxCollider roomBoundary;
+        private bool[] forwardDir = new bool[4];
         private InputAction cameraMoveAction;
-        [SerializeField] private List<bool> forwardDir;
+        
 
 
     void Awake()
@@ -94,6 +97,7 @@ public class CameraController : MonoBehaviour
     void CameraMovement()
     {
         Vector3 move = cameraMoveAction.ReadValue<Vector2>();
+        Bounds areaBounds = roomBoundary.bounds;
         Vector3 scaledMove = new Vector3();
         IsFlipped();
 
@@ -119,7 +123,14 @@ public class CameraController : MonoBehaviour
         }
         
         Vector3 newPosition = transform.position + scaledMove;
-        transform.position = newPosition;
+        Vector3 finalPosition = new Vector3 
+            (
+                Mathf.Clamp(newPosition.x, areaBounds.min.x, areaBounds.max.x),
+                Mathf.Clamp(newPosition.y, areaBounds.min.y, areaBounds.max.y),
+                Mathf.Clamp(newPosition.z, areaBounds.min.z, areaBounds.max.z)
+            );
+
+        transform.position = finalPosition;
     }
 
     void IsFlipped()
@@ -204,8 +215,18 @@ public class CameraController : MonoBehaviour
 
         if (zoomNum != 0)
         {
-            Vector3 zoomDirection = transform.forward * zoomNum * Time.deltaTime;
-            Vector3 newPosition = transform.position + zoomDirection;
+            zoomDirection = transform.forward * zoomNum * Time.deltaTime;
+
+            if (transform.position.y == minHeight || transform.position.y == maxHeight)
+            {
+                if (forwardDir[0] || forwardDir[1] || forwardDir[2] || forwardDir[3])
+                {
+                    zoomDirection.x = 0;
+                    zoomDirection.z = 0;
+                }
+            }
+
+            Vector3 newPosition = transform.position + zoomDirection;            
 
             transform.position = new Vector3(newPosition.x, Mathf.Clamp(newPosition.y, minHeight, maxHeight), newPosition.z);
         }
