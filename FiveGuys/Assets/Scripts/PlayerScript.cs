@@ -1,15 +1,19 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerScript : MonoBehaviour
 {
-    private enum PlayerState {Working, Distracted}
+    private enum PlayerState {Working, Distracted, Controlled}
     [SerializeField] private PlayerState playerState;
+    [SerializeField] private bool isControlled;
+        public bool IsControlled { get { return isControlled; }  set { isControlled = value; } }
 
     [Header("Character Navigation")]
     [SerializeField] private Transform target;
     [SerializeField] private Transform workingStation;
+    
 
     [Header("Player Movement")]
     [SerializeField] private NavMeshAgent player;
@@ -17,9 +21,9 @@ public class PlayerScript : MonoBehaviour
     private InputAction moveAction;
     private Vector2 moveAmount;
 
-    [SerializeField] private bool isControlled;
-        public bool IsControlled { get { return isControlled; }  set { isControlled = value; } }
-
+    
+    //Debug Stuff
+    private PlayerState lastState;
     [SerializeField] private CharacterStateDebug DebugText;
 
     [Header("Distraction Stuff")]
@@ -28,8 +32,11 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float minWaitForDistraction;
     [SerializeField] private float maxWaitForDistraction;
 
-    //Debug Stuff
-    private PlayerState lastState;
+    
+    [Header("Animation")]
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private List<bool> animTrigger;
+
     void Awake()
     {
         moveAction = input.FindAction("Move");
@@ -71,11 +78,21 @@ public class PlayerScript : MonoBehaviour
                     playerState = PlayerState.Distracted;
                 }
 
+                SetAnimation(0);
+                isControlled = false;
                 break;
 
             case PlayerState.Distracted:
                 player.SetDestination(target.position);
                 player.isStopped = false;
+
+                SetAnimation(1);
+                isControlled = false;
+                break;
+
+            case PlayerState.Controlled:
+                
+                PossessedMovement();
                 break;
         }
     }
@@ -92,6 +109,34 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+
+    void SetAnimation(int index)
+    {
+        if (!animTrigger[index])
+        {
+            switch(index)
+            {
+                case 0:
+                    animTrigger[1] = false;
+                    animTrigger[2] = false;
+                    break;
+                case 1:
+                    animTrigger[0] = false;
+                    animTrigger[2] = false;
+                    break;
+                case 2:
+                    // animTrigger[0] = false;
+                    // animTrigger[1] = false;
+                    break;
+            }
+            
+            animTrigger[index] = true;
+        }
+        
+        playerAnimator.SetBool("Working", animTrigger[0]);
+        playerAnimator.SetBool("Walking", animTrigger[1]);
+        // playerAnimator.SetBool("Wanking", animTrigger[2]);
+    }
 
 
     void PossessedMovement()
