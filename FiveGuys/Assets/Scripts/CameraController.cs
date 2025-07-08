@@ -200,8 +200,8 @@ public class CameraController : MonoBehaviour
     void CameraZoom()
     {
         float scrollValue = mouseZoomAction.ReadValue<Vector2>().y;
-        zoomNum = scrollValue * zoomSpeed;
-        
+        zoomNum = scrollValue * (zoomSpeed * 10);
+
         if (transform.position.y != minHeight || transform.position.y != maxHeight)
         {
             if (zoomNum != 0)

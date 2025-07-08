@@ -301,7 +301,7 @@ MonoBehaviour:
   camState: 0
   rotateSpeed: 3
   lookXLimit: 35
-  zoomSpeed: 150
+  zoomSpeed: 15
   minHeight: 4
   maxHeight: 10
   borderLayer:
