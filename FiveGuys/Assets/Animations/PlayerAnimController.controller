@@ -31,7 +31,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Y_Ryan_Controller
+  m_Name: PlayerAnimController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isWorking
@@ -130,7 +130,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3204077689190635660, guid: 4a6ab6c92f817434195d890ffa2d0baf, type: 3}
+  m_Motion: {fileID: -3204077689190635660, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -157,7 +157,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -9024542561244037507, guid: 4a6ab6c92f817434195d890ffa2d0baf, type: 3}
+  m_Motion: {fileID: -9024542561244037507, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
