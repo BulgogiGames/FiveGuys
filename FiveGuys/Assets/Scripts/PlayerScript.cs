@@ -197,7 +197,6 @@ public class PlayerScript : MonoBehaviour
             playerAnimator.SetBool("Walking", animTrigger[1]);
             // playerAnimator.SetBool("Wanking", animTrigger[2]);
         }
-        
     }
 
 
