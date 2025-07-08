@@ -153,30 +153,34 @@ public class PlayerScript : MonoBehaviour
 
     void SetAnimation(int index)
     {
-        if (!animTrigger[index])
+        if(playerAnimator != null)
         {
-            switch(index)
+            if (!animTrigger[index])
             {
-                case 0:
-                    animTrigger[1] = false;
-                    animTrigger[2] = false;
-                    break;
-                case 1:
-                    animTrigger[0] = false;
-                    animTrigger[2] = false;
-                    break;
-                case 2:
-                    // animTrigger[0] = false;
-                    // animTrigger[1] = false;
-                    break;
+                switch(index)
+                {
+                    case 0:
+                        animTrigger[1] = false;
+                        animTrigger[2] = false;
+                        break;
+                    case 1:
+                        animTrigger[0] = false;
+                        animTrigger[2] = false;
+                        break;
+                    case 2:
+                        // animTrigger[0] = false;
+                        // animTrigger[1] = false;
+                        break;
+                }
+                
+                animTrigger[index] = true;
             }
             
-            animTrigger[index] = true;
+            playerAnimator.SetBool("Working", animTrigger[0]);
+            playerAnimator.SetBool("Walking", animTrigger[1]);
+            // playerAnimator.SetBool("Wanking", animTrigger[2]);
         }
         
-        playerAnimator.SetBool("Working", animTrigger[0]);
-        playerAnimator.SetBool("Walking", animTrigger[1]);
-        // playerAnimator.SetBool("Wanking", animTrigger[2]);
     }
 
 
