@@ -64,10 +64,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: 22f00d17de567654a93fdfbe06ce3b67, type: 3}
+      propertyPath: m_Name
+      value: YT_Computer
+      objectReference: {fileID: 0}
     - target: {fileID: -4683669308469848369, guid: 22f00d17de567654a93fdfbe06ce3b67, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 6ffc190c686032448ac9b1ca2a788d58, type: 2}
+    - target: {fileID: -4020427428959063088, guid: 22f00d17de567654a93fdfbe06ce3b67, type: 3}
+      propertyPath: m_Name
+      value: Book
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 22f00d17de567654a93fdfbe06ce3b67, type: 3}
       propertyPath: m_Name
       value: Ryan Youtube Computer
