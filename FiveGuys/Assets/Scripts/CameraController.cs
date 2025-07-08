@@ -201,13 +201,16 @@ public class CameraController : MonoBehaviour
     {
         float scrollValue = mouseZoomAction.ReadValue<Vector2>().y;
         zoomNum = scrollValue * zoomSpeed;
-
-        if (zoomNum != 0)
+        
+        if (transform.position.y != minHeight || transform.position.y != maxHeight)
         {
-            Vector3 zoomDirection = transform.forward * zoomNum * Time.deltaTime;
-            Vector3 newPosition = transform.position + zoomDirection;
+            if (zoomNum != 0)
+            {
+                Vector3 zoomDirection = transform.forward * zoomNum * Time.deltaTime;
+                Vector3 newPosition = transform.position + zoomDirection;
 
-            transform.position = new Vector3(newPosition.x, Mathf.Clamp(newPosition.y, minHeight, maxHeight), newPosition.z);
+                transform.position = new Vector3(newPosition.x, Mathf.Clamp(newPosition.y, minHeight, maxHeight), newPosition.z);
+            }
         }
     }
 }
