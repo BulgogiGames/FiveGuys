@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class SFXManager : MonoBehaviour
 {
-    private static SFXManager instance;
+    public static SFXManager instance;
     [SerializeField] private AudioSource sfxObject;
 
     // Plays on component load
