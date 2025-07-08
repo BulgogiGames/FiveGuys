@@ -26,6 +26,11 @@ public class PlayerScript : MonoBehaviour
     private PlayerState lastState;
     [SerializeField] private CharacterStateDebug DebugText;
 
+    [Header("Working Stuff")]
+    [SerializeField] private int roleID;
+    [SerializeField] private float getPointEveryXSecs;
+    [SerializeField] private float workPointCountDown;
+
     [Header("Distraction Stuff")]
     [SerializeField] private List<Transform> possibleActivities;
     [SerializeField] private float distractionCountDown;
@@ -83,6 +88,18 @@ public class PlayerScript : MonoBehaviour
                 if (distractionCountDown <= 0)
                 {
                     playerState = PlayerState.Distracted;
+                }
+
+                if(workPointCountDown > 0)
+                {
+                    workPointCountDown -= Time.deltaTime;
+                }
+
+                if(workPointCountDown <= 0)
+                {
+                    //Award point here and reset the countdown
+                    DevProgressPieChart.PC.UpdateProgress(1, roleID);
+                    workPointCountDown = getPointEveryXSecs;
                 }
 
                 SetAnimation(0);
@@ -180,7 +197,6 @@ public class PlayerScript : MonoBehaviour
             playerAnimator.SetBool("Walking", animTrigger[1]);
             // playerAnimator.SetBool("Wanking", animTrigger[2]);
         }
-        
     }
 
 

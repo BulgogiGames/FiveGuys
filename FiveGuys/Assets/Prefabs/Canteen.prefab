@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
+      maxColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4901,6 +4901,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4d0bf320fadbc2e429fc72cdd95f607a, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 2715df5e2ff329145b19c6db69f4350e, type: 3}
+      propertyPath: 'm_Materials.Array.data[4]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 615a67ba110239646a14bc63e39479c4, type: 2}
     - target: {fileID: 919132149155446097, guid: 2715df5e2ff329145b19c6db69f4350e, type: 3}
       propertyPath: m_Name
       value: Canteen
