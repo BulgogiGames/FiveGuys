@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class PlayerScript : MonoBehaviour
 {
     private enum PlayerState {Working, Distracted, Controlled}
-    private PlayerState playerState;
+    [SerializeField] private PlayerState playerState;
 
     [Header("Player Movement")]
     [SerializeField] private NavMeshAgent player;
@@ -18,8 +19,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private Animator playerAnimator;
-    [SerializeField] private SpriteRenderer[] playerSprites;
-        public SpriteRenderer[] PlayerSprites => playerSprites;
+    [SerializeField] private List<bool> animTrigger;
 
     void Awake()
     {
@@ -40,15 +40,15 @@ public class PlayerScript : MonoBehaviour
         switch(playerState)
         {
             case PlayerState.Working:
-                Debug.Log("im working");
+                SetAnimation(0);
                 isControlled = false;
                 break;
             case PlayerState.Distracted:
-                Debug.Log("im distracted");
+                SetAnimation(1);
                 isControlled = false;
                 break;
             case PlayerState.Controlled:
-                Debug.Log("im controlled");
+                
                 PossessedMovement();
                 break;
         }
@@ -77,6 +77,32 @@ public class PlayerScript : MonoBehaviour
             playerState = PlayerState.Controlled;
             isControlled = false;
         }
+    }
+
+    void SetAnimation(int index)
+    {
+        if (!animTrigger[index])
+        {
+            switch(index)
+            {
+                case 0:
+                    animTrigger[1] = false;
+                    animTrigger[2] = false;
+                    break;
+                case 1:
+                    animTrigger[0] = false;
+                    animTrigger[2] = false;
+                    break;
+                case 2:
+                    //
+                    break;
+            }
+            
+            animTrigger[index] = true;
+        }
+        
+        playerAnimator.SetBool("Working", animTrigger[0]);
+        playerAnimator.SetBool("Walking", animTrigger[1]);
     }
 
 
