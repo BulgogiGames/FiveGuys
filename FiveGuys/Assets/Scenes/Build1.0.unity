@@ -2009,7 +2009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &348270894
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2042,7 +2042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce435c25364afd4cb539239bca3cf69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLocation: {fileID: 0}
+  playerLocation: {fileID: 1906751172}
   offset: {x: 1, y: 1.5, z: 1}
   stateText: {fileID: 938022642}
 --- !u!114 &348270896
@@ -2472,7 +2472,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  owner: {fileID: 0}
+  owner: {fileID: 1365971425}
   hidingZone: {fileID: 0}
   isBathroom: 0
   bathroomStayTime: 0
@@ -2662,7 +2662,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  owner: {fileID: 0}
+  owner: {fileID: 2033610681}
   hidingZone: {fileID: 0}
   isBathroom: 0
   bathroomStayTime: 0
@@ -4820,7 +4820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1243489994
 Transform:
   m_ObjectHideFlags: 0
@@ -4830,7 +4830,7 @@ Transform:
   m_GameObject: {fileID: 1243489993}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.17, y: 1, z: -23.48}
+  m_LocalPosition: {x: 18.17, y: 1, z: 8.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4851,20 +4851,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: 0
   isControlled: 0
-  target: {fileID: 0}
-  workingStation: {fileID: 0}
+  target: {fileID: 1576635982}
+  workingStation: {fileID: 2076302556}
   stationLayer:
     serializedVersion: 2
     m_Bits: 128
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  DebugText: {fileID: 0}
+  DebugText: {fileID: 1803415831}
   roleID: 5
   getPointEveryXSecs: 3
   workPointCountDown: 3
   possibleActivities:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1576635982}
+  - {fileID: 784260245}
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
@@ -5668,7 +5668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1365971424
 Transform:
   m_ObjectHideFlags: 0
@@ -5678,7 +5678,7 @@ Transform:
   m_GameObject: {fileID: 1365971423}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.17, y: 1, z: -23.48}
+  m_LocalPosition: {x: -0.81, y: 1, z: 26.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5699,20 +5699,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: 0
   isControlled: 0
-  target: {fileID: 0}
-  workingStation: {fileID: 0}
+  target: {fileID: 974668548}
+  workingStation: {fileID: 520702544}
   stationLayer:
     serializedVersion: 2
     m_Bits: 128
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  DebugText: {fileID: 0}
+  DebugText: {fileID: 1669023920}
   roleID: 4
   getPointEveryXSecs: 3
   workPointCountDown: 3
   possibleActivities:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 974668548}
+  - {fileID: 784260245}
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
@@ -6422,7 +6422,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  owner: {fileID: 0}
+  owner: {fileID: 1347150882}
   hidingZone: {fileID: 0}
   isBathroom: 0
   bathroomStayTime: 0
@@ -6650,7 +6650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1669023919
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6683,7 +6683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce435c25364afd4cb539239bca3cf69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLocation: {fileID: 0}
+  playerLocation: {fileID: 1365971424}
   offset: {x: 1, y: 1.5, z: 1}
   stateText: {fileID: 29593907}
 --- !u!114 &1669023921
@@ -6780,8 +6780,8 @@ Transform:
   m_Children:
   - {fileID: 1347150881}
   - {fileID: 1906751172}
-  - {fileID: 1365971424}
   - {fileID: 2033610680}
+  - {fileID: 1365971424}
   - {fileID: 1243489994}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7327,7 +7327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1803415830
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7360,7 +7360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce435c25364afd4cb539239bca3cf69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLocation: {fileID: 0}
+  playerLocation: {fileID: 1243489994}
   offset: {x: 1, y: 1.5, z: 1}
   stateText: {fileID: 701528660}
 --- !u!114 &1803415832
@@ -7719,7 +7719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1906751172
 Transform:
   m_ObjectHideFlags: 0
@@ -7729,7 +7729,7 @@ Transform:
   m_GameObject: {fileID: 1906751171}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.17, y: 1, z: -23.48}
+  m_LocalPosition: {x: 17.17, y: 1, z: -3.4799995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7750,20 +7750,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: 0
   isControlled: 0
-  target: {fileID: 0}
-  workingStation: {fileID: 0}
+  target: {fileID: 1874942531}
+  workingStation: {fileID: 2081927268}
   stationLayer:
     serializedVersion: 2
     m_Bits: 128
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  DebugText: {fileID: 0}
+  DebugText: {fileID: 348270895}
   roleID: 2
   getPointEveryXSecs: 3
   workPointCountDown: 3
   possibleActivities:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1874942531}
+  - {fileID: 784260245}
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
@@ -8109,7 +8109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2033610680
 Transform:
   m_ObjectHideFlags: 0
@@ -8119,7 +8119,7 @@ Transform:
   m_GameObject: {fileID: 2033610679}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.17, y: 1, z: -23.48}
+  m_LocalPosition: {x: -12.83, y: 1, z: -18.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8140,20 +8140,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: 0
   isControlled: 0
-  target: {fileID: 0}
-  workingStation: {fileID: 0}
+  target: {fileID: 1736436243}
+  workingStation: {fileID: 541603442}
   stationLayer:
     serializedVersion: 2
     m_Bits: 128
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  DebugText: {fileID: 0}
+  DebugText: {fileID: 2120994728}
   roleID: 3
   getPointEveryXSecs: 3
   workPointCountDown: 3
   possibleActivities:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1736436243}
+  - {fileID: 784260245}
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
@@ -8573,7 +8573,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  owner: {fileID: 0}
+  owner: {fileID: 1243489995}
   hidingZone: {fileID: 0}
   isBathroom: 0
   bathroomStayTime: 0
@@ -8701,7 +8701,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  owner: {fileID: 0}
+  owner: {fileID: 1906751173}
   hidingZone: {fileID: 0}
   isBathroom: 0
   bathroomStayTime: 0
@@ -8935,7 +8935,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2120994727
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8968,7 +8968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce435c25364afd4cb539239bca3cf69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLocation: {fileID: 0}
+  playerLocation: {fileID: 2033610680}
   offset: {x: 1, y: 1.5, z: 1}
   stateText: {fileID: 265666010}
 --- !u!114 &2120994729
