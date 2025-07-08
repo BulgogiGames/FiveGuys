@@ -1,45 +1,48 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class CameraController : MonoBehaviour
 {
     [Header("main stuff")]
         [SerializeField] private Camera mainCamera;
-
         [SerializeField] private InputActionAsset input;
-        private InputAction mouseDeltaAction;
-        private InputAction mouseScrollAction;
 
         private enum CameraStates { Overhead, POV }
         [SerializeField] private CameraStates camState;
 
 
     [Header("rotation stuff")]
-        [SerializeField] private float mouseSens;
-        [SerializeField] private float lookXLimit;//, lookYLimit;
+        [SerializeField] private float rotateSpeed;
+        [SerializeField] private float lookXLimit;
         private float rotationX, rotationY;
+        private InputAction mouseTurnAction;
         
 
     [Header("zoom stuff")]
         [SerializeField] private float zoomSpeed;
         private float zoomNum;
         [SerializeField] private float minHeight, maxHeight;
+        private InputAction mouseZoomAction;
 
     [Header("movement stuff")]
-        [SerializeField] private LayerMask borderLayer;
+        [SerializeField] private LayerMask borderLayer; 
+        [SerializeField] private float moveSpeed;
+        private InputAction cameraMoveAction;
+        [SerializeField] private List<bool> forwardDir;
 
 
     void Awake()
     {
         mainCamera = GetComponent<Camera>();
-        mouseDeltaAction = input.FindAction("Look");
-        mouseScrollAction = input.FindAction("Zoom");
+        mouseTurnAction = input.FindAction("Turn");
+        mouseZoomAction = input.FindAction("Zoom");
+        cameraMoveAction = input.FindAction("Move");
     }
 
     void Start()
     {
         camState = CameraStates.Overhead;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -52,7 +55,7 @@ public class CameraController : MonoBehaviour
                     CameraClick();
                 }
 
-                //CameraMovement();
+                CameraMovement();
                 CameraRotation();
                 CameraZoom();
                 break;
@@ -90,17 +93,98 @@ public class CameraController : MonoBehaviour
 
     void CameraMovement()
     {
+        Vector3 move = cameraMoveAction.ReadValue<Vector2>();
+        Vector3 scaledMove = new Vector3();
+        IsFlipped();
 
+        if (forwardDir[0])
+        {
+            //z+
+            scaledMove = moveSpeed * Time.deltaTime * new Vector3(move.x, 0, move.y);            
+        }
+        if (forwardDir[1])
+        {
+            //z-
+            scaledMove = -moveSpeed * Time.deltaTime * new Vector3(move.x, 0, move.y);
+        }
+        if (forwardDir[2])
+        {
+            //x+
+            scaledMove = moveSpeed * Time.deltaTime * new Vector3(move.y, 0, -move.x);
+        }
+        if (forwardDir[3])
+        {
+            //x-
+            scaledMove = -moveSpeed * Time.deltaTime * new Vector3(move.y, 0, -move.x);
+        }
+        
+        Vector3 newPosition = transform.position + scaledMove;
+        transform.position = newPosition;
+    }
+
+    void IsFlipped()
+    {
+        Vector3 forward = transform.forward;
+
+        if (Vector3.Dot(forward, Vector3.forward) > 0.5f)
+        {
+            SwitchBool(0);
+            //Debug.Log("Facing World Forward (Z+)");
+        }
+        else if (Vector3.Dot(forward, Vector3.back) > 0.5f) 
+        {
+            SwitchBool(1);
+            //Debug.Log("Facing World Backward (Z-)");
+        } 
+        else if (Vector3.Dot(forward, Vector3.right) > 0.5f) 
+        {
+            SwitchBool(2);
+            //Debug.Log("Facing World Right (X+)");
+        }
+        else if (Vector3.Dot(forward, Vector3.left) > 0.5f) 
+        {
+            SwitchBool(3);
+            //Debug.Log("Facing World Left (X-)");
+        }
+    }
+
+    void SwitchBool(int index) 
+    {
+        switch(index)
+        {
+            case 0:
+                forwardDir[1] = false;
+                forwardDir[2] = false;
+                forwardDir[3] = false;
+                break;
+            case 1:
+                forwardDir[0] = false;
+                forwardDir[2] = false;
+                forwardDir[3] = false;
+                break;
+            case 2:
+                forwardDir[0] = false;
+                forwardDir[1] = false;
+                forwardDir[3] = false;
+                break;
+            case 3:
+                forwardDir[0] = false;
+                forwardDir[1] = false;
+                forwardDir[2] = false;
+                break;
+        }
+
+        forwardDir[index] = true;
     }
 
     void CameraRotation()
     {
-        Vector2 mouseDelta = mouseDeltaAction.ReadValue<Vector2>();
+        Vector2 moveAmount = mouseTurnAction.ReadValue<Vector2>();
 
         //move up/down
-        if (transform.position.y < maxHeight / 2)
+        if (transform.position.y < maxHeight)
         {
-            rotationX -= mouseDelta.y * (mouseSens / 10);
+            rotationX -= moveAmount.y * (rotateSpeed / 10);
             rotationX = Mathf.Clamp(rotationX, 0, lookXLimit);
         }
         else
@@ -109,16 +193,14 @@ public class CameraController : MonoBehaviour
         }
 
         //move left/right
-        rotationY += mouseDelta.x * (mouseSens / 10);
-        //rotationY = Mathf.Clamp(rotationY, -lookYLimit, lookYLimit);
-
+        rotationY += moveAmount.x * (rotateSpeed / 10);
         transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0);
     }
 
     void CameraZoom()
     {
-        float scrollValue = mouseScrollAction.ReadValue<Vector2>().y;
-        zoomNum = scrollValue * (zoomSpeed * 10);
+        float scrollValue = mouseZoomAction.ReadValue<Vector2>().y;
+        zoomNum = scrollValue * zoomSpeed;
 
         if (zoomNum != 0)
         {

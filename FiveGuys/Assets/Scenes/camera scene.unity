@@ -299,14 +299,16 @@ MonoBehaviour:
   mainCamera: {fileID: 15903461}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   camState: 0
-  mouseSens: 0.5
-  lookXLimit: 45
+  rotateSpeed: 1
+  lookXLimit: 35
   zoomSpeed: 15
-  minHeight: 1
+  minHeight: 4
   maxHeight: 10
   borderLayer:
     serializedVersion: 2
     m_Bits: 256
+  moveSpeed: 10
+  forwardDir: 00000000
 --- !u!114 &15903464
 MonoBehaviour:
   m_ObjectHideFlags: 0
