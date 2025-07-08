@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class PlayerScript : MonoBehaviour
 {
-    private enum PlayerState {Working, Distracted, Controlled}
+    private enum PlayerState { Working, Distracted, Moving, Shitting, ClockingIn }
     [SerializeField] private PlayerState playerState;
     [SerializeField] private bool isControlled;
         public bool IsControlled { get { return isControlled; }  set { isControlled = value; } }
@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     [Header("Character Navigation")]
     [SerializeField] private Transform target;
     [SerializeField] private Transform workingStation;
-    
+    [SerializeField] private LayerMask stationLayer;
 
     [Header("Player Movement")]
     [SerializeField] private NavMeshAgent player;
@@ -27,6 +27,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private CharacterStateDebug DebugText;
 
     [Header("Distraction Stuff")]
+    [SerializeField] private List<Transform> possibleActivities;
     [SerializeField] private float distractionCountDown;
 
     [SerializeField] private float minWaitForDistraction;
@@ -36,6 +37,12 @@ public class PlayerScript : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private List<bool> animTrigger;
+
+    [SerializeField] private bool hasChosenDistraction;
+
+    [SerializeField] private bool hasToShit;
+    [SerializeField] private float bathroomCountDown;
+    [SerializeField] private Transform bathroomEntrance;
 
     void Awake()
     {
@@ -48,32 +55,32 @@ public class PlayerScript : MonoBehaviour
         distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
         playerState = PlayerState.Working;
     }
-    
+
     void Update()
     {
         DebugSwitchState();
 
         if (playerState != lastState)
         {
-            if(DebugText != null)
+            if (DebugText != null)
             {
                 UpdateDebugText(playerState.ToString());
             }
-            
+
             lastState = playerState;
         }
 
-        switch(playerState)
+        switch (playerState)
         {
             case PlayerState.Working:
                 player.isStopped = true;
-                
-                if(distractionCountDown > 0)
+
+                if (distractionCountDown > 0)
                 {
                     distractionCountDown -= Time.deltaTime;
                 }
 
-                if(distractionCountDown <= 0)
+                if (distractionCountDown <= 0)
                 {
                     playerState = PlayerState.Distracted;
                 }
@@ -83,6 +90,20 @@ public class PlayerScript : MonoBehaviour
                 break;
 
             case PlayerState.Distracted:
+                //Choose distraction
+                if(!hasChosenDistraction)
+                {
+                    int chosenDistraction = Random.Range(0, possibleActivities.Count);
+
+                    if(chosenDistraction == 1)
+                    {
+                        hasToShit = true;
+                    }
+
+                    target = possibleActivities[chosenDistraction];
+                    hasChosenDistraction = true;
+                }
+                
                 player.SetDestination(target.position);
                 player.isStopped = false;
 
@@ -90,9 +111,29 @@ public class PlayerScript : MonoBehaviour
                 isControlled = false;
                 break;
 
-            case PlayerState.Controlled:
-                
+            case PlayerState.Moving:
                 PossessedMovement();
+                break;
+
+            case PlayerState.Shitting:
+                player.isStopped = true;
+                
+                if(bathroomCountDown > 0)
+                {
+                    bathroomCountDown -= Time.deltaTime;
+                }
+
+                if(bathroomCountDown <= 0)
+                {
+                    transform.position = new Vector3(bathroomEntrance.position.x, 1, bathroomEntrance.position.z);
+
+                    playerState = PlayerState.ClockingIn;
+                }
+                break;
+
+            case PlayerState.ClockingIn:
+                player.isStopped = false;
+                player.SetDestination(workingStation.position);
                 break;
         }
     }
@@ -146,26 +187,66 @@ public class PlayerScript : MonoBehaviour
         Vector3 scaledMove = player.speed * Time.deltaTime * new Vector3(moveAmount.x, 0, moveAmount.y);
 
         player.Move(scaledMove);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void GotClicked()
     {
         player.isStopped = true;
+        player.ResetPath();
 
-        transform.position = workingStation.position + new Vector3(0,0.94f,0);
 
-        if(DebugText != null)
+        if (DebugText != null)
         {
             UpdateDebugText("Working");
         }
 
-        distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
+        
 
-        playerState = PlayerState.Working;
+        playerState = PlayerState.Moving;
     }
 
     public void UpdateDebugText(string update)
     {
         DebugText.UpdateText(update);
+    }
+
+    public void GetBackToWork()
+    {
+        distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
+
+        //Get the mouse back
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        //Place the player at the working station
+        transform.position = workingStation.position;
+        player.isStopped = true;
+
+        hasChosenDistraction = false;
+
+        //Start Working again
+        playerState = PlayerState.Working;
+    }
+
+    public void GoneBathroom()
+    {
+        playerState = PlayerState.Shitting;
+    }
+
+    public bool HasToShit()
+    {
+        return hasToShit;
+    }
+
+    public void EnteredBathroom(Transform bathroomDoor, float bathroomTime)
+    {
+        bathroomEntrance = bathroomDoor;
+
+        bathroomCountDown = bathroomTime;
+
+        hasToShit = false;
     }
 }
