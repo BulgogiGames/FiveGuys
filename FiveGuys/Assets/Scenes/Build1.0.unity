@@ -798,7 +798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &136540098
 Transform:
   m_ObjectHideFlags: 0
@@ -831,7 +831,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -844,7 +844,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136540097}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2500,7 +2500,7 @@ Transform:
   m_GameObject: {fileID: 520702543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.47, y: -27.758701, z: 14.02}
+  m_LocalPosition: {x: -21.47, y: -27.7587, z: 14.02}
   m_LocalScale: {x: 1, y: 0.024999999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2690,7 +2690,7 @@ Transform:
   m_GameObject: {fileID: 541603441}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.12, y: -27.758701, z: -30.19}
+  m_LocalPosition: {x: -33.12, y: -27.7587, z: -30.19}
   m_LocalScale: {x: 1, y: 0.024999999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3975,7 +3975,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &992423368
 Transform:
   m_ObjectHideFlags: 0
@@ -4008,7 +4008,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -4021,7 +4021,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992423367}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5081,7 +5081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: 0
-  isControlled: 0
+  prevState: 0
   target: {fileID: 1576635982}
   workingStation: {fileID: 2076302556}
   stationLayer:
@@ -5089,6 +5089,7 @@ MonoBehaviour:
     m_Bits: 128
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  playerPOV: {fileID: 136540098}
   DebugText: {fileID: 1803415831}
   roleID: 5
   getPointEveryXSecs: 3
@@ -5099,6 +5100,10 @@ MonoBehaviour:
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
   playerAnimator: {fileID: 1225346486}
   backHead: 0
   cameraFocus: {fileID: 1825507000}
@@ -5106,10 +5111,6 @@ MonoBehaviour:
   - {fileID: 1225346483}
   - {fileID: 1225346484}
   animTrigger: 000000
-  hasChosenDistraction: 0
-  hasToShit: 0
-  bathroomCountDown: 0
-  bathroomEntrance: {fileID: 0}
 --- !u!195 &1243489996
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5868,7 +5869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: 0
-  isControlled: 0
+  prevState: 0
   target: {fileID: 2128296466}
   workingStation: {fileID: 1533867047}
   stationLayer:
@@ -5876,6 +5877,7 @@ MonoBehaviour:
     m_Bits: 128
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  playerPOV: {fileID: 1504174883}
   DebugText: {fileID: 169586417}
   roleID: 1
   getPointEveryXSecs: 3
@@ -5886,6 +5888,10 @@ MonoBehaviour:
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
   playerAnimator: {fileID: 1952507531}
   backHead: 0
   cameraFocus: {fileID: 1600120322}
@@ -5893,10 +5899,6 @@ MonoBehaviour:
   - {fileID: 339042883}
   - {fileID: 873567104}
   animTrigger: 000000
-  hasChosenDistraction: 0
-  hasToShit: 0
-  bathroomCountDown: 0
-  bathroomEntrance: {fileID: 0}
 --- !u!195 &1347150883
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6081,7 +6083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: 0
-  isControlled: 0
+  prevState: 0
   target: {fileID: 974668548}
   workingStation: {fileID: 520702544}
   stationLayer:
@@ -6089,6 +6091,7 @@ MonoBehaviour:
     m_Bits: 128
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  playerPOV: {fileID: 1786272312}
   DebugText: {fileID: 1669023920}
   roleID: 4
   getPointEveryXSecs: 3
@@ -6099,6 +6102,10 @@ MonoBehaviour:
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
   playerAnimator: {fileID: 1262018650}
   backHead: 0
   cameraFocus: {fileID: 1785242200}
@@ -6106,10 +6113,6 @@ MonoBehaviour:
   - {fileID: 1262018649}
   - {fileID: 1262018646}
   animTrigger: 000000
-  hasChosenDistraction: 0
-  hasToShit: 0
-  bathroomCountDown: 0
-  bathroomEntrance: {fileID: 0}
 --- !u!195 &1365971426
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6313,7 +6316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1407662118
 Transform:
   m_ObjectHideFlags: 0
@@ -6346,7 +6349,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -6359,7 +6362,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407662117}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6549,7 +6552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1504174883
 Transform:
   m_ObjectHideFlags: 0
@@ -6582,7 +6585,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -6595,7 +6598,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504174882}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6736,7 +6739,7 @@ Transform:
   m_GameObject: {fileID: 1533867046}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.69, y: -27.758701, z: -35.23}
+  m_LocalPosition: {x: -11.69, y: -27.7587, z: -35.23}
   m_LocalScale: {x: 1, y: 0.024999999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7647,7 +7650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1786272312
 Transform:
   m_ObjectHideFlags: 0
@@ -7680,7 +7683,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -7693,7 +7696,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786272311}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8357,7 +8360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: 0
-  isControlled: 0
+  prevState: 0
   target: {fileID: 1874942531}
   workingStation: {fileID: 2081927268}
   stationLayer:
@@ -8365,6 +8368,7 @@ MonoBehaviour:
     m_Bits: 128
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  playerPOV: {fileID: 992423368}
   DebugText: {fileID: 348270895}
   roleID: 2
   getPointEveryXSecs: 3
@@ -8375,6 +8379,10 @@ MonoBehaviour:
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
   playerAnimator: {fileID: 1864935979}
   backHead: 0
   cameraFocus: {fileID: 1077627373}
@@ -8382,10 +8390,6 @@ MonoBehaviour:
   - {fileID: 1864935978}
   - {fileID: 1864935975}
   animTrigger: 000000
-  hasChosenDistraction: 0
-  hasToShit: 0
-  bathroomCountDown: 0
-  bathroomEntrance: {fileID: 0}
 --- !u!195 &1906751174
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8730,7 +8734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: 0
-  isControlled: 0
+  prevState: 0
   target: {fileID: 1736436243}
   workingStation: {fileID: 541603442}
   stationLayer:
@@ -8738,6 +8742,7 @@ MonoBehaviour:
     m_Bits: 128
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  playerPOV: {fileID: 1407662118}
   DebugText: {fileID: 2120994728}
   roleID: 3
   getPointEveryXSecs: 3
@@ -8748,6 +8753,10 @@ MonoBehaviour:
   distractionCountDown: 5
   minWaitForDistraction: 3
   maxWaitForDistraction: 10
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
   playerAnimator: {fileID: 353808035}
   backHead: 1
   cameraFocus: {fileID: 1626958132}
@@ -8755,10 +8764,6 @@ MonoBehaviour:
   - {fileID: 353808034}
   - {fileID: 353808031}
   animTrigger: 000000
-  hasChosenDistraction: 0
-  hasToShit: 0
-  bathroomCountDown: 0
-  bathroomEntrance: {fileID: 0}
 --- !u!195 &2033610682
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9117,7 +9122,7 @@ Transform:
   m_GameObject: {fileID: 2076302555}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.99, y: -27.758701, z: -3.79}
+  m_LocalPosition: {x: -1.99, y: -27.7587, z: -3.79}
   m_LocalScale: {x: 1, y: 0.024999999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9245,7 +9250,7 @@ Transform:
   m_GameObject: {fileID: 2081927267}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.4363022, y: -27.758701, z: -14.953179}
+  m_LocalPosition: {x: -2.4363022, y: -27.7587, z: -14.953179}
   m_LocalScale: {x: 1, y: 0.024999999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

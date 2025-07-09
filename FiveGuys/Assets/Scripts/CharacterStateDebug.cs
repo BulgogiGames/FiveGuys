@@ -9,12 +9,16 @@ public class CharacterStateDebug : MonoBehaviour
 
     void Update()
     {
+
         Vector3 localOffset = transform.right * offset.x + transform.up * offset.y + transform.forward * offset.z;
         transform.position = playerLocation.position + localOffset;
 
-        Vector3 toCamera = CameraController.CC.MainCamera.transform.position - transform.position;
-        Quaternion baseRotation = Quaternion.LookRotation(Vector3.up, toCamera);
-        transform.rotation = baseRotation * Quaternion.Euler(new Vector3(90f, 0f, 0f));
+        if (CameraController.CC.CamState != CameraStates.POV)
+        {
+            Vector3 toCamera = CameraController.CC.MainCamera.transform.position - transform.position;
+            Quaternion baseRotation = Quaternion.LookRotation(Vector3.up, toCamera);
+            transform.rotation = baseRotation * Quaternion.Euler(new Vector3(90f, 0f, 0f));
+        }        
     }
 
     public void UpdateText(string text)

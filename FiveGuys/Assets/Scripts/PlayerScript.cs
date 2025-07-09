@@ -3,12 +3,14 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
+public enum PlayerState { Working, Distracted, Moving, Shitting, ClockingIn }
+
 public class PlayerScript : MonoBehaviour
 {
-    private enum PlayerState { Working, Distracted, Moving, Shitting, ClockingIn }
     [SerializeField] private PlayerState playerState;
-    [SerializeField] private bool isControlled;
-        public bool IsControlled { get { return isControlled; }  set { isControlled = value; } }
+        public PlayerState PlayersState => playerState;
+    private PlayerState lastState;
+    [SerializeField] private PlayerState prevState;
 
     [Header("Character Navigation")]
     [SerializeField] private Transform target;
@@ -18,12 +20,13 @@ public class PlayerScript : MonoBehaviour
     [Header("Player Movement")]
     [SerializeField] private NavMeshAgent player;
     [SerializeField] private InputActionAsset input;
+    [SerializeField] private Transform playerPOV;
+        public Transform PlayerPOV => playerPOV;
     private InputAction moveAction;
     private Vector2 moveAmount;
 
     
     //Debug Stuff
-    private PlayerState lastState;
     [SerializeField] private CharacterStateDebug DebugText;
 
     [Header("Working Stuff")]
@@ -38,6 +41,12 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float minWaitForDistraction;
     [SerializeField] private float maxWaitForDistraction;
 
+    [SerializeField] private bool hasChosenDistraction;
+
+    [SerializeField] private bool hasToShit;
+    [SerializeField] private float bathroomCountDown;
+    [SerializeField] private Transform bathroomEntrance;
+
     
     [Header("Animation")]
     [SerializeField] private Animator playerAnimator;
@@ -45,12 +54,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Transform cameraFocus;
     [SerializeField] private List<GameObject> playerHeads;
     [SerializeField] private List<bool> animTrigger;
-
-    [SerializeField] private bool hasChosenDistraction;
-
-    [SerializeField] private bool hasToShit;
-    [SerializeField] private float bathroomCountDown;
-    [SerializeField] private Transform bathroomEntrance;
 
     void Awake()
     {
@@ -61,6 +64,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
+        prevState = playerState;
         playerState = PlayerState.Working;
 
         if (backHead)
@@ -77,7 +81,15 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         //DebugSwitchState();
-        FaceCamera();
+        FaceToCamera();
+        if (playerState == PlayerState.Moving)
+        {
+            CameraIsFace();
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                playerState = prevState;
+            }
+        }        
 
         if (playerState != lastState)
         {
@@ -101,6 +113,7 @@ public class PlayerScript : MonoBehaviour
 
                 if (distractionCountDown <= 0)
                 {
+                    prevState = playerState;
                     playerState = PlayerState.Distracted;
                 }
 
@@ -117,7 +130,6 @@ public class PlayerScript : MonoBehaviour
                 }
 
                 SetAnimation(0);
-                isControlled = false;
                 break;
 
             case PlayerState.Distracted:
@@ -139,7 +151,6 @@ public class PlayerScript : MonoBehaviour
                 player.isStopped = false;
 
                 SetAnimation(1);
-                isControlled = false;
                 break;
 
             case PlayerState.Moving:
@@ -156,8 +167,9 @@ public class PlayerScript : MonoBehaviour
 
                 if(bathroomCountDown <= 0)
                 {
-                    transform.position = new Vector3(bathroomEntrance.position.x, 1, bathroomEntrance.position.z);
+                    transform.position = new Vector3(bathroomEntrance.position.x, 2, bathroomEntrance.position.z);
 
+                    prevState = playerState;
                     playerState = PlayerState.ClockingIn;
                 }
                 break;
@@ -173,10 +185,12 @@ public class PlayerScript : MonoBehaviour
     {
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
+            prevState = playerState;
             playerState = PlayerState.Working;
         }
         if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
+            prevState = playerState;
             playerState = PlayerState.Distracted;
         }
     }
@@ -218,8 +232,10 @@ public class PlayerScript : MonoBehaviour
     {
         moveAmount = moveAction.ReadValue<Vector2>();
 
-        Vector3 scaledMove = player.speed * Time.deltaTime * new Vector3(moveAmount.x, 0, moveAmount.y);
+        // Get forward/right based on current Y-rotation
+        Vector3 moveDir = transform.forward * moveAmount.y + transform.right * moveAmount.x;
 
+        Vector3 scaledMove = (player.speed * 2) * new Vector3(moveDir.x, 0f, moveDir.z) * Time.deltaTime;
         player.Move(scaledMove);
 
         Cursor.visible = false;
@@ -238,7 +254,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         
-
+        prevState = playerState;
         playerState = PlayerState.Moving;
     }
 
@@ -256,17 +272,19 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         //Place the player at the working station
-        transform.position = workingStation.position;
+        transform.position = workingStation.position + new Vector3(0f, 2f, 0f);
         player.isStopped = true;
 
         hasChosenDistraction = false;
 
         //Start Working again
+        prevState = playerState;
         playerState = PlayerState.Working;
     }
 
     public void GoneBathroom()
     {
+        prevState = playerState;
         playerState = PlayerState.Shitting;
     }
 
@@ -284,7 +302,7 @@ public class PlayerScript : MonoBehaviour
         hasToShit = false;
     }
 
-    void FaceCamera()
+    void FaceToCamera()
     {
         Vector3 toCamera = CameraController.CC.MainCamera.transform.position - cameraFocus.position;
 
@@ -293,5 +311,14 @@ public class PlayerScript : MonoBehaviour
 
         Quaternion baseRotation = Quaternion.LookRotation(Vector3.up, correctedY);
         cameraFocus.rotation = baseRotation * Quaternion.Euler(new Vector3(90f, 0f, 0f));
+    }
+
+    void CameraIsFace()
+    {
+        //rotate to face camera forward direction
+        Vector3 camForward = CameraController.CC.MainCamera.transform.forward;
+        camForward.y = 0f;
+        camForward.Normalize();
+        transform.rotation = Quaternion.LookRotation(camForward);
     }
 }
