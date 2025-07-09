@@ -66,7 +66,7 @@ MonoBehaviour:
       slotIndex: 0
   m_OutputFlowSlot:
   - link: []
-  blendMode: 1
+  blendMode: 0
   cullMode: 0
   zWriteMode: 0
   zTestMode: 0
@@ -1177,7 +1177,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.07058823853731156,"y":0.10980392247438431,"z":0.09607843309640885}'
+      m_SerializableObject: '{"x":1.1294118165969849,"y":1.756862759590149,"z":1.5372549295425416}'
     m_Space: -1
   m_Property:
     name: _Color
