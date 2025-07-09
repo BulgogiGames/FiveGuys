@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 1347150881}
-  offset: {x: 1, y: 1.5, z: 1}
+  offset: {x: 1, y: 2.5, z: 1}
   stateText: {fileID: 767894821}
 --- !u!114 &169586418
 MonoBehaviour:
@@ -1885,7 +1885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 1906751172}
-  offset: {x: 1, y: 1.5, z: 1}
+  offset: {x: 1, y: 2.5, z: 1}
   stateText: {fileID: 938022642}
 --- !u!114 &348270896
 MonoBehaviour:
@@ -7083,7 +7083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 1365971424}
-  offset: {x: 1, y: 1.5, z: 1}
+  offset: {x: 1, y: 2.5, z: 1}
   stateText: {fileID: 29593907}
 --- !u!114 &1669023921
 MonoBehaviour:
@@ -7792,7 +7792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 1243489994}
-  offset: {x: 1, y: 1.5, z: 1}
+  offset: {x: 1, y: 2.5, z: 1}
   stateText: {fileID: 701528660}
 --- !u!114 &1803415832
 MonoBehaviour:
@@ -9534,7 +9534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 2033610680}
-  offset: {x: 1, y: 1.5, z: 1}
+  offset: {x: 1, y: 2.5, z: 1}
   stateText: {fileID: 265666010}
 --- !u!114 &2120994729
 MonoBehaviour:
