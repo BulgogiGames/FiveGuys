@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &194266864
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -238,11 +238,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: 0
+  isControlled: 0
+  target: {fileID: 0}
+  workingStation: {fileID: 0}
+  stationLayer:
+    serializedVersion: 2
+    m_Bits: 0
   player: {fileID: 194266869}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  isControlled: 0
+  DebugText: {fileID: 0}
+  roleID: 0
+  getPointEveryXSecs: 0
+  workPointCountDown: 0
+  possibleActivities: []
+  distractionCountDown: 0
+  minWaitForDistraction: 0
+  maxWaitForDistraction: 0
   playerAnimator: {fileID: 1024425627}
   animTrigger: 000000
+  hasChosenDistraction: 0
+  hasToShit: 0
+  bathroomCountDown: 0
+  bathroomEntrance: {fileID: 0}
 --- !u!1001 &1024425624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -316,6 +333,18 @@ PrefabInstance:
       value: -151.05237
       objectReference: {fileID: 0}
     - target: {fileID: 596586336533159914, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 596586336533159914, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0008
+      objectReference: {fileID: 0}
+    - target: {fileID: 596586336533159914, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0617
+      objectReference: {fileID: 0}
+    - target: {fileID: 596586336533159914, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90.00878
       objectReference: {fileID: 0}
@@ -325,7 +354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 910238301064055276, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0.0000050089047
+      value: 0.000014390921
       objectReference: {fileID: 0}
     - target: {fileID: 910238301064055276, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -333,15 +362,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 910238301064055276, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -179.99991
+      value: 165.657
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
       propertyPath: m_Name
       value: PlayerAnimRig
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6300787872190077755, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0.0000050089557
+      value: 0.0000048590064
       objectReference: {fileID: 0}
     - target: {fileID: 6300787872190077755, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -349,7 +382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6300787872190077755, guid: d3db7446cdc78724d8270b98c7953a1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -180
+      value: -165.65694
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -479,7 +512,7 @@ Transform:
   m_GameObject: {fileID: 1505730887}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 3.4, z: -2.75}
+  m_LocalPosition: {x: 0, y: 3.4, z: -3.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -498,6 +531,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1505730889}
+  input: {fileID: 0}
+  camState: 0
+  rotateSpeed: 0
+  lookXLimit: 0
+  zoomSpeed: 0
+  minHeight: 0
+  maxHeight: 0
+  moveSpeed: 0
+  roomBoundary: {fileID: 0}
 --- !u!114 &1505730892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,7 +721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1537227899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,7 +787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1628520941
 MeshCollider:
   m_ObjectHideFlags: 0
