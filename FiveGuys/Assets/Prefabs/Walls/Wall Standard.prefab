@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30,11 +30,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 29
+      value: -35.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_LocalRotation.x
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_LocalRotation.z
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -75,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
       propertyPath: m_Name
       value: Wall Standard
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b1c3a8015602b96418090424ac5c4ce2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
