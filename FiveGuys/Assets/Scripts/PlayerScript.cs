@@ -66,11 +66,11 @@ public class PlayerScript : MonoBehaviour
         if (backHead)
         {
             //just for xaviers scarf 
-            playerHeads[1].SetActive(false);
+            playerHeads[0].SetActive(false);
         }
         else if (!backHead)
         {
-            playerHeads[0].SetActive(false);
+            playerHeads[1].SetActive(false);
         }
     }
 
