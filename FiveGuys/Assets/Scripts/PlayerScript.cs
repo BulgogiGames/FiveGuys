@@ -41,6 +41,9 @@ public class PlayerScript : MonoBehaviour
     
     [Header("Animation")]
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private bool backHead;
+    [SerializeField] private Transform cameraFocus;
+    [SerializeField] private List<GameObject> playerHeads;
     [SerializeField] private List<bool> animTrigger;
 
     [SerializeField] private bool hasChosenDistraction;
@@ -59,11 +62,22 @@ public class PlayerScript : MonoBehaviour
     {
         distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
         playerState = PlayerState.Working;
+
+        if (backHead)
+        {
+            //just for xaviers scarf 
+            playerHeads[1].SetActive(false);
+        }
+        else if (!backHead)
+        {
+            playerHeads[0].SetActive(false);
+        }
     }
 
     void Update()
     {
-        DebugSwitchState();
+        //DebugSwitchState();
+        FaceCamera();
 
         if (playerState != lastState)
         {
@@ -268,5 +282,16 @@ public class PlayerScript : MonoBehaviour
         bathroomCountDown = bathroomTime;
 
         hasToShit = false;
+    }
+
+    void FaceCamera()
+    {
+        Vector3 toCamera = CameraController.CC.MainCamera.transform.position - cameraFocus.position;
+
+        Vector3 right = Vector3.Cross(Vector3.up, toCamera.normalized * -1f).normalized;
+        Vector3 correctedY = Vector3.Cross(right, Vector3.up).normalized;
+
+        Quaternion baseRotation = Quaternion.LookRotation(Vector3.up, correctedY);
+        cameraFocus.rotation = baseRotation * Quaternion.Euler(new Vector3(90f, 0f, 0f));
     }
 }

@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class CameraController : MonoBehaviour
 {
     [Header("main stuff")]
+        public static CameraController CC { get; private set; }
         [SerializeField] private Camera mainCamera;
+            public Camera MainCamera => mainCamera;
         [SerializeField] private InputActionAsset input;
 
         private enum CameraStates { Overhead, POV }
@@ -37,6 +39,11 @@ public class CameraController : MonoBehaviour
 
     void Awake()
     {
+        if(CC == null)
+        {
+            CC = this;
+        }
+
         mainCamera = GetComponent<Camera>();
         mouseTurnAction = input.FindAction("Turn");
         mouseZoomAction = input.FindAction("Zoom");
@@ -97,7 +104,7 @@ public class CameraController : MonoBehaviour
     void CameraMovement()
     {
         Vector3 move = cameraMoveAction.ReadValue<Vector2>();
-        Bounds areaBounds = roomBoundary.bounds;
+        
         Vector3 scaledMove = new Vector3();
         IsFlipped();
 
@@ -123,12 +130,20 @@ public class CameraController : MonoBehaviour
         }
         
         Vector3 newPosition = transform.position + scaledMove;
-        Vector3 finalPosition = new Vector3 
+        Vector3 finalPosition = newPosition;
+        Bounds areaBounds;
+
+        if (roomBoundary != null)
+        {
+            areaBounds = roomBoundary.bounds;
+            finalPosition = new Vector3 
             (
                 Mathf.Clamp(newPosition.x, areaBounds.min.x, areaBounds.max.x),
                 Mathf.Clamp(newPosition.y, areaBounds.min.y, areaBounds.max.y),
                 Mathf.Clamp(newPosition.z, areaBounds.min.z, areaBounds.max.z)
             );
+        }
+        
 
         transform.position = finalPosition;
     }
