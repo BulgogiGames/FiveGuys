@@ -27,7 +27,7 @@ public class PlayerScript : MonoBehaviour
 
     
     //Debug Stuff
-    [SerializeField] private CharacterStateDebug DebugText;
+    [SerializeField] private CharacterStateDebug debugText;
 
     [Header("Working Stuff")]
     [SerializeField] private int roleID;
@@ -88,12 +88,13 @@ public class PlayerScript : MonoBehaviour
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 playerState = prevState;
+                debugText.TurnOnAndOff(true);
             }
         }        
 
         if (playerState != lastState)
         {
-            if (DebugText != null)
+            if (debugText != null)
             {
                 UpdateDebugText(playerState.ToString());
             }
@@ -248,7 +249,7 @@ public class PlayerScript : MonoBehaviour
         player.ResetPath();
 
 
-        if (DebugText != null)
+        if (debugText != null)
         {
             UpdateDebugText("Working");
         }
@@ -260,7 +261,7 @@ public class PlayerScript : MonoBehaviour
 
     public void UpdateDebugText(string update)
     {
-        DebugText.UpdateText(update);
+        debugText.UpdateText(update);
     }
 
     public void GetBackToWork()
@@ -315,6 +316,8 @@ public class PlayerScript : MonoBehaviour
 
     void CameraIsFace()
     {
+        debugText.TurnOnAndOff(false);
+
         //rotate to face camera forward direction
         Vector3 camForward = CameraController.CC.MainCamera.transform.forward;
         camForward.y = 0f;

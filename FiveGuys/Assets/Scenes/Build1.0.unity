@@ -5090,7 +5090,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 136540098}
-  DebugText: {fileID: 1803415831}
+  debugText: {fileID: 1803415831}
   roleID: 5
   getPointEveryXSecs: 3
   workPointCountDown: 3
@@ -5878,7 +5878,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 1504174883}
-  DebugText: {fileID: 169586417}
+  debugText: {fileID: 169586417}
   roleID: 1
   getPointEveryXSecs: 3
   workPointCountDown: 3
@@ -6092,7 +6092,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 1786272312}
-  DebugText: {fileID: 1669023920}
+  debugText: {fileID: 1669023920}
   roleID: 4
   getPointEveryXSecs: 3
   workPointCountDown: 3
@@ -8369,7 +8369,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 992423368}
-  DebugText: {fileID: 348270895}
+  debugText: {fileID: 348270895}
   roleID: 2
   getPointEveryXSecs: 3
   workPointCountDown: 3
@@ -8743,7 +8743,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 1407662118}
-  DebugText: {fileID: 2120994728}
+  debugText: {fileID: 2120994728}
   roleID: 3
   getPointEveryXSecs: 3
   workPointCountDown: 3
