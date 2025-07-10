@@ -54,6 +54,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Transform cameraFocus;
     [SerializeField] private List<GameObject> playerHeads;
     [SerializeField] private List<bool> animTrigger;
+    [SerializeField] private bool reachedLoc;
 
     void Awake()
     {
@@ -105,6 +106,7 @@ public class PlayerScript : MonoBehaviour
         switch (playerState)
         {
             case PlayerState.Working:
+                reachedLoc = false;
                 player.isStopped = true;
 
                 if (distractionCountDown > 0)
@@ -137,6 +139,7 @@ public class PlayerScript : MonoBehaviour
                 //Choose distraction
                 if(!hasChosenDistraction)
                 {
+                    reachedLoc = false;
                     int chosenDistraction = Random.Range(0, possibleActivities.Count);
 
                     if(chosenDistraction == 1)
@@ -150,15 +153,26 @@ public class PlayerScript : MonoBehaviour
                 
                 player.SetDestination(target.position);
                 player.isStopped = false;
-
-                SetAnimation(1);
+                
+                if (reachedLoc)
+                {
+                    SetAnimation(2);
+                }
+                else
+                {
+                    SetAnimation(1);
+                }
+                
                 break;
 
             case PlayerState.Moving:
+                reachedLoc = false;
                 PossessedMovement();
+                SetAnimation(1);
                 break;
 
             case PlayerState.Shitting:
+                reachedLoc = false;
                 player.isStopped = true;
                 
                 if(bathroomCountDown > 0)
@@ -176,6 +190,7 @@ public class PlayerScript : MonoBehaviour
                 break;
 
             case PlayerState.ClockingIn:
+                reachedLoc = false;
                 player.isStopped = false;
                 player.SetDestination(workingStation.position);
                 break;
@@ -214,8 +229,8 @@ public class PlayerScript : MonoBehaviour
                         animTrigger[2] = false;
                         break;
                     case 2:
-                        // animTrigger[0] = false;
-                        // animTrigger[1] = false;
+                        animTrigger[0] = false;
+                        animTrigger[1] = false;
                         break;
                 }
                 
@@ -224,7 +239,7 @@ public class PlayerScript : MonoBehaviour
             
             playerAnimator.SetBool("Working", animTrigger[0]);
             playerAnimator.SetBool("Walking", animTrigger[1]);
-            // playerAnimator.SetBool("Wanking", animTrigger[2]);
+            playerAnimator.SetBool("Wanking", animTrigger[2]);
         }
     }
 
@@ -323,5 +338,15 @@ public class PlayerScript : MonoBehaviour
         camForward.y = 0f;
         camForward.Normalize();
         transform.rotation = Quaternion.LookRotation(camForward);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        GameObject collided = other.gameObject;
+
+        if (collided == target.gameObject)
+        {
+            reachedLoc = true;
+        }
     }
 }
