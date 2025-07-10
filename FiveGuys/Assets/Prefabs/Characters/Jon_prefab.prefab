@@ -131,6 +131,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 4979861208579311517}
+  playerSpeed: 2.4
   debugText: {fileID: 0}
   roleID: 4
   getPointEveryXSecs: 3
@@ -138,9 +139,9 @@ MonoBehaviour:
   possibleActivities:
   - {fileID: 4662178936337891223}
   - {fileID: 0}
-  distractionCountDown: 5
-  minWaitForDistraction: 3
-  maxWaitForDistraction: 10
+  distractionCountDown: 4
+  minWaitForDistraction: 10
+  maxWaitForDistraction: 20
   hasChosenDistraction: 0
   hasToShit: 0
   bathroomCountDown: 0

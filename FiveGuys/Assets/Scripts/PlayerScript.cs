@@ -21,6 +21,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private NavMeshAgent player;
     [SerializeField] private InputActionAsset input;
     [SerializeField] private Transform playerPOV;
+    [SerializeField] private float playerSpeed;
         public Transform PlayerPOV => playerPOV;
     private InputAction moveAction;
     private Vector2 moveAmount;
@@ -251,7 +252,7 @@ public class PlayerScript : MonoBehaviour
         // Get forward/right based on current Y-rotation
         Vector3 moveDir = transform.forward * moveAmount.y + transform.right * moveAmount.x;
 
-        Vector3 scaledMove = (player.speed * 2) * new Vector3(moveDir.x, 0f, moveDir.z) * Time.deltaTime;
+        Vector3 scaledMove = (player.speed * playerSpeed) * new Vector3(moveDir.x, 0f, moveDir.z) * Time.deltaTime;
         player.Move(scaledMove);
 
         Cursor.visible = false;

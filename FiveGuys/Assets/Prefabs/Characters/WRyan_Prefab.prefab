@@ -596,7 +596,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3.8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -630,6 +630,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 2703658431284647113}
+  playerSpeed: 2.4
   debugText: {fileID: 0}
   roleID: 5
   getPointEveryXSecs: 3
@@ -638,8 +639,8 @@ MonoBehaviour:
   - {fileID: 8812756057845881415}
   - {fileID: 0}
   distractionCountDown: 5
-  minWaitForDistraction: 3
-  maxWaitForDistraction: 10
+  minWaitForDistraction: 10
+  maxWaitForDistraction: 20
   hasChosenDistraction: 0
   hasToShit: 0
   bathroomCountDown: 0
