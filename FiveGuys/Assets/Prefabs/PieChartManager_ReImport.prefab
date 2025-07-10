@@ -527,6 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40245fdac99f3954fb6ef6c1cc3f9d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieChart: {fileID: 1916902808478735391}
   slices:
   - roleName: Programmer
     sliceImage: {fileID: 7128490933812645256}
@@ -543,11 +544,17 @@ MonoBehaviour:
   - roleName: Composer
     sliceImage: {fileID: 9053667812086944378}
     progress: 1
-  ProgrammerProgress: 1
-  AnimatorProgress: 1
-  Art3DProgress: 1
-  Art2DProgress: 1
-  ComposerProgress: 1
+  programmerProgress: 1
+  animatorProgress: 1
+  art3DProgress: 1
+  art2DProgress: 1
+  composerProgress: 1
+  sliceAmounts:
+  - {fileID: 7128490933812645256}
+  - {fileID: 8255508334930933179}
+  - {fileID: 2779108664169053551}
+  - {fileID: 9053667812086944378}
+  - {fileID: 293240460674829323}
 --- !u!1 &8788524679296778387
 GameObject:
   m_ObjectHideFlags: 0

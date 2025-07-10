@@ -49,9 +49,10 @@ public class MenuManager : MonoBehaviour
         SFXManager.instance.PlayGlobalSFX(selectClip, this.transform, 1f);
     }
 
-    public void loadScene()
+    public void LoadScene()
     {
         SFXManager.instance.PlayGlobalSFX(selectClip, this.transform, 1f);
+        //this needs to change to whatever the final build scene is
         SceneManager.LoadScene("Scene");
     }
 
