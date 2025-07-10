@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,12 +57,17 @@ public class GameManager : MonoBehaviour
     void SetText()
     {
         DevProgressPieChart pieC = DevProgressPieChart.PC;
-        float pieTotal = pieC.SliceAmounts[0].fillAmount + pieC.SliceAmounts[1].fillAmount + pieC.SliceAmounts[2].fillAmount + pieC.SliceAmounts[3].fillAmount + pieC.SliceAmounts[4].fillAmount;
+        float pieTotal = pieC.ProgrammerProgress + pieC.AnimatorProgress + pieC.Art2DProgress + pieC.Art3DProgress + pieC.ComposerProgress;
         
-        programming.text = "Programming Contribution: " + (pieC.SliceAmounts[0].fillAmount / pieTotal * 100).ToString() + "%";
-        threeDArt.text = "3D Art Contribution: " + (pieC.SliceAmounts[1].fillAmount / pieTotal * 100).ToString() + "%";
-        twoDArt.text = "2D Art Contribution: " + (pieC.SliceAmounts[2].fillAmount / pieTotal * 100).ToString() + "%";
-        music.text = "Music Contribution: " + (pieC.SliceAmounts[3].fillAmount / pieTotal * 100).ToString() + "%";
-        animating.text = "Animation Contribution: " + (pieC.SliceAmounts[4].fillAmount / pieTotal * 100).ToString() + "%";
+        programming.text = "Programming Contribution: " + (pieC.ProgrammerProgress / pieTotal * 100).ToString() + "%";
+        threeDArt.text = "3D Art Contribution: " + (pieC.Art3DProgress / pieTotal * 100).ToString() + "%";
+        twoDArt.text = "2D Art Contribution: " + (pieC.Art2DProgress / pieTotal * 100).ToString() + "%";
+        music.text = "Music Contribution: " + (pieC.ComposerProgress / pieTotal * 100).ToString() + "%";
+        animating.text = "Animation Contribution: " + (pieC.AnimatorProgress / pieTotal * 100).ToString() + "%";
+    }
+
+    public void Reboot()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

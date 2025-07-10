@@ -47,7 +47,7 @@ public class DevProgressPieChart : MonoBehaviour
         }
         else if (PC != this)
         {
-            Destroy(gameObject);
+            Destroy(this);
         }
     }
 
