@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WorkingStation : MonoBehaviour
@@ -21,7 +22,10 @@ public class WorkingStation : MonoBehaviour
         {
             if(playerLayer.Contains(collided) && collided == owner.gameObject && !isBathroom)
             {
-                owner.GetBackToWork();
+                if (owner.PlayersState == PlayerState.Moving)
+                {
+                    owner.GetBackToWork();
+                }
             }
         }
         
