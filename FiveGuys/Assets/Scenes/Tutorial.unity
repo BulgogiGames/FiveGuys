@@ -1056,6 +1056,10 @@ PrefabInstance:
       propertyPath: debugText
       value: 
       objectReference: {fileID: 919033465}
+    - target: {fileID: 4785779553513804170, guid: 92752100486e7d4488be2d2712da8eda, type: 3}
+      propertyPath: 'possibleActivities.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1706513117}
     - target: {fileID: 5706453124946805513, guid: 92752100486e7d4488be2d2712da8eda, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.65
@@ -1067,6 +1071,14 @@ PrefabInstance:
     - target: {fileID: 5706453124946805513, guid: 92752100486e7d4488be2d2712da8eda, type: 3}
       propertyPath: m_LocalPosition.z
       value: 8.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5773632465640267052, guid: 92752100486e7d4488be2d2712da8eda, type: 3}
+      propertyPath: m_Size.y
+      value: 80.73754
+      objectReference: {fileID: 0}
+    - target: {fileID: 5773632465640267052, guid: 92752100486e7d4488be2d2712da8eda, type: 3}
+      propertyPath: m_Center.y
+      value: 34.90376
       objectReference: {fileID: 0}
     - target: {fileID: 7099264006052973035, guid: 92752100486e7d4488be2d2712da8eda, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2538,6 +2550,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 9067594897053615668, guid: cceb82cb133757e479d18b8dfbfe1e33, type: 3}
   m_PrefabInstance: {fileID: 1652873069}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1706513117 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1233795620354188856, guid: fbd59c509b81d8c42acd3522e509d08a, type: 3}
+  m_PrefabInstance: {fileID: 839580030}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1779768687
 PrefabInstance:

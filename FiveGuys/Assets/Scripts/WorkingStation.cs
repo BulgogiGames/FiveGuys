@@ -22,7 +22,7 @@ public class WorkingStation : MonoBehaviour
         {
             if(playerLayer.Contains(collided) && collided == owner.gameObject && !isBathroom)
             {
-                if (owner.PlayersState == PlayerState.Moving)
+                if (owner.PlayersState == PlayerState.Moving || owner.PlayersState == PlayerState.ClockingIn)
                 {
                     owner.GetBackToWork();
                 }
