@@ -22,7 +22,7 @@ public class WorkingStation : MonoBehaviour
         {
             if(playerLayer.Contains(collided) && collided == owner.gameObject && !isBathroom)
             {
-                if (owner.PlayersState == PlayerState.Moving || owner.PlayersState == PlayerState.ClockingIn)
+                if (owner.PlayersState == PlayerState.Moving)
                 {
                     owner.GetBackToWork();
                 }
@@ -31,6 +31,7 @@ public class WorkingStation : MonoBehaviour
         
         if(isBathroom && collided.transform.GetComponent<PlayerScript>().HasToShit())
         {
+            Debug.Log("Should move to: " + hidingZone.position);
             collided.transform.position = hidingZone.position;
 
             collided.transform.GetComponent<PlayerScript>().GoneBathroom();
