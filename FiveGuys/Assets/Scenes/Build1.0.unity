@@ -5505,6 +5505,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 136540098}
+  playerSpeed: 2.4
   debugText: {fileID: 1803415831}
   roleID: 5
   getPointEveryXSecs: 3
@@ -5513,8 +5514,8 @@ MonoBehaviour:
   - {fileID: 1576635982}
   - {fileID: 784260245}
   distractionCountDown: 5
-  minWaitForDistraction: 3
-  maxWaitForDistraction: 10
+  minWaitForDistraction: 10
+  maxWaitForDistraction: 20
   hasChosenDistraction: 0
   hasToShit: 0
   bathroomCountDown: 0
@@ -5537,7 +5538,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3.8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -6442,6 +6443,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 1504174883}
+  playerSpeed: 2.4
   debugText: {fileID: 169586417}
   roleID: 1
   getPointEveryXSecs: 3
@@ -6450,8 +6452,8 @@ MonoBehaviour:
   - {fileID: 2128296466}
   - {fileID: 784260245}
   distractionCountDown: 5
-  minWaitForDistraction: 3
-  maxWaitForDistraction: 10
+  minWaitForDistraction: 10
+  maxWaitForDistraction: 20
   hasChosenDistraction: 0
   hasToShit: 0
   bathroomCountDown: 0
@@ -6474,7 +6476,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -6657,6 +6659,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 1786272312}
+  playerSpeed: 2.4
   debugText: {fileID: 1669023920}
   roleID: 4
   getPointEveryXSecs: 3
@@ -6665,8 +6668,8 @@ MonoBehaviour:
   - {fileID: 974668548}
   - {fileID: 784260245}
   distractionCountDown: 5
-  minWaitForDistraction: 3
-  maxWaitForDistraction: 10
+  minWaitForDistraction: 10
+  maxWaitForDistraction: 20
   hasChosenDistraction: 0
   hasToShit: 0
   bathroomCountDown: 0
@@ -9104,6 +9107,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 992423368}
+  playerSpeed: 2.4
   debugText: {fileID: 348270895}
   roleID: 2
   getPointEveryXSecs: 3
@@ -9112,8 +9116,8 @@ MonoBehaviour:
   - {fileID: 1874942531}
   - {fileID: 784260245}
   distractionCountDown: 5
-  minWaitForDistraction: 3
-  maxWaitForDistraction: 10
+  minWaitForDistraction: 10
+  maxWaitForDistraction: 20
   hasChosenDistraction: 0
   hasToShit: 0
   bathroomCountDown: 0
@@ -9479,6 +9483,7 @@ MonoBehaviour:
   player: {fileID: 0}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   playerPOV: {fileID: 1407662118}
+  playerSpeed: 2.4
   debugText: {fileID: 2120994728}
   roleID: 3
   getPointEveryXSecs: 3
@@ -9487,8 +9492,8 @@ MonoBehaviour:
   - {fileID: 1736436243}
   - {fileID: 784260245}
   distractionCountDown: 5
-  minWaitForDistraction: 3
-  maxWaitForDistraction: 10
+  minWaitForDistraction: 10
+  maxWaitForDistraction: 20
   hasChosenDistraction: 0
   hasToShit: 0
   bathroomCountDown: 0
@@ -9511,7 +9516,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3.8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -11279,7 +11284,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38cfedcb01b7c284da28c9aba9fc838e, type: 3}
---- !u!1001 &7228441031881908563
 --- !u!1001 &7846427059832705351
 PrefabInstance:
   m_ObjectHideFlags: 0
