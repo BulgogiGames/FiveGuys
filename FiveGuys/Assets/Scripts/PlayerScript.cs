@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private Transform workingStation;
     [SerializeField] private LayerMask stationLayer;
+    [SerializeField] private LayerMask distractionLayer;
 
     [Header("Player Movement")]
     [SerializeField] private NavMeshAgent player;
@@ -170,7 +171,7 @@ public class PlayerScript : MonoBehaviour
                 }
                 else if (isTutorial)// walk to distraction zone
                 {
-                    reachedLoc = false;
+                    //reachedLoc = false;
                     target = possibleActivities[0];
                     hasChosenDistraction = true;
                 }
@@ -373,9 +374,13 @@ public class PlayerScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Player has entered trigger: " + other.gameObject.name + "Target: " + target.gameObject.name);
         GameObject collided = other.gameObject;
 
-        if (collided == target.gameObject)
+        Debug.Log("collided == target: " + (collided == target.gameObject));
+
+
+        if (collided == target.gameObject || distractionLayer.Contains(collided))
         {
             reachedLoc = true;
         }
@@ -411,5 +416,10 @@ public class PlayerScript : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void ReachedLocations()
+    {
+        reachedLoc = true;
     }
 }
