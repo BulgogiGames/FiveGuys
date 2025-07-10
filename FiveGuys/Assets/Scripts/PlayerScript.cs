@@ -68,14 +68,15 @@ public class PlayerScript : MonoBehaviour
         distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
         prevState = playerState;
 
-        if (TutorialManager.TutorialMan != null || TutorialManager.TutorialMan.tutorialDone == false)
-        {
-            playerState = PlayerState.Tutorial;
-        }
-        else
-        {
-            playerState = PlayerState.Working;
-        }
+        // if (TutorialManager.TutorialMan != null || TutorialManager.TutorialMan.tutorialDone == false)
+        // {
+        //     playerState = PlayerState.Tutorial;
+        // }
+        // else
+        // {
+        //     playerState = PlayerState.Working;
+        // }
+        playerState = PlayerState.Working;
         
 
         if (backHead)
