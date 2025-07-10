@@ -3,7 +3,7 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
-public enum PlayerState { Working, Distracted, Moving, Shitting, ClockingIn }
+public enum PlayerState { Tutorial, Working, Distracted, Moving, Shitting, ClockingIn }
 
 public class PlayerScript : MonoBehaviour
 {
@@ -66,7 +66,16 @@ public class PlayerScript : MonoBehaviour
     {
         distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
         prevState = playerState;
-        playerState = PlayerState.Working;
+
+        if (TutorialManager.TutorialMan.tutorialDone == false)
+        {
+            playerState = PlayerState.Tutorial;
+        }
+        else
+        {
+            playerState = PlayerState.Working;
+        }
+        
 
         if (backHead)
         {
@@ -120,12 +129,12 @@ public class PlayerScript : MonoBehaviour
                     playerState = PlayerState.Distracted;
                 }
 
-                if(workPointCountDown > 0)
+                if (workPointCountDown > 0)
                 {
                     workPointCountDown -= Time.deltaTime;
                 }
 
-                if(workPointCountDown <= 0)
+                if (workPointCountDown <= 0)
                 {
                     //Award point here and reset the countdown
                     DevProgressPieChart.PC.UpdateProgress(1, roleID);
@@ -137,12 +146,12 @@ public class PlayerScript : MonoBehaviour
 
             case PlayerState.Distracted:
                 //Choose distraction
-                if(!hasChosenDistraction)
+                if (!hasChosenDistraction)
                 {
                     reachedLoc = false;
                     int chosenDistraction = Random.Range(0, possibleActivities.Count);
 
-                    if(chosenDistraction == 1)
+                    if (chosenDistraction == 1)
                     {
                         hasToShit = true;
                     }
@@ -150,10 +159,10 @@ public class PlayerScript : MonoBehaviour
                     target = possibleActivities[chosenDistraction];
                     hasChosenDistraction = true;
                 }
-                
+
                 player.SetDestination(target.position);
                 player.isStopped = false;
-                
+
                 if (reachedLoc)
                 {
                     SetAnimation(2);
@@ -162,7 +171,7 @@ public class PlayerScript : MonoBehaviour
                 {
                     SetAnimation(1);
                 }
-                
+
                 break;
 
             case PlayerState.Moving:
@@ -174,13 +183,13 @@ public class PlayerScript : MonoBehaviour
             case PlayerState.Shitting:
                 reachedLoc = false;
                 player.isStopped = true;
-                
-                if(bathroomCountDown > 0)
+
+                if (bathroomCountDown > 0)
                 {
                     bathroomCountDown -= Time.deltaTime;
                 }
 
-                if(bathroomCountDown <= 0)
+                if (bathroomCountDown <= 0)
                 {
                     transform.position = new Vector3(bathroomEntrance.position.x, 2, bathroomEntrance.position.z);
 
@@ -193,6 +202,9 @@ public class PlayerScript : MonoBehaviour
                 reachedLoc = false;
                 player.isStopped = false;
                 player.SetDestination(workingStation.position);
+                break;
+
+            case PlayerState.Tutorial:
                 break;
         }
     }
