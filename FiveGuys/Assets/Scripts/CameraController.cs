@@ -238,7 +238,7 @@ public class CameraController : MonoBehaviour
         //move up/down
         if (transform.position.y < maxHeight)
         {
-            rotationX -= moveAmount.y * (rotateSpeed / 10);
+            rotationX -= moveAmount.y * rotateSpeed * 10 * Time.deltaTime;
             rotationX = Mathf.Clamp(rotationX, 0, lookXLimit);
         }
         else
@@ -247,7 +247,7 @@ public class CameraController : MonoBehaviour
         }
 
         //move left/right
-        rotationY += moveAmount.x * (rotateSpeed / 10);
+        rotationY += moveAmount.x * rotateSpeed * 10 * Time.deltaTime;
         transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
     }
 
@@ -338,11 +338,11 @@ public class CameraController : MonoBehaviour
         Vector2 mouseDelta = mouseDeltaAction.ReadValue<Vector2>();
 
         //move up/down
-        povX -= mouseDelta.y * (rotateSpeed / 50);
+        povX -= mouseDelta.y * rotateSpeed * Time.deltaTime;
         povX = Mathf.Clamp(povX, -90, 90);
 
         //move left/right
-        povY += mouseDelta.x * (rotateSpeed / 50);
+        povY += mouseDelta.x * rotateSpeed * Time.deltaTime;
 
         transform.rotation = Quaternion.Euler(povX, povY, 0);
     }

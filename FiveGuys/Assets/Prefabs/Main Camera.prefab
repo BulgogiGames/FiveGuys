@@ -153,7 +153,7 @@ MonoBehaviour:
   mainCamera: {fileID: 134438614402495452}
   input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   camState: 0
-  rotateSpeed: 5
+  rotateSpeed: 9
   lookXLimit: 35
   rotationX: 0
   rotationY: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
   zoomSpeed: 15
   minHeight: 4
   maxHeight: 10
-  moveSpeed: 10
+  moveSpeed: 16
   roomBoundary: {fileID: 0}
   currPossessed: {fileID: 0}
   lastCamPosition: {x: 0, y: 0, z: 0}
