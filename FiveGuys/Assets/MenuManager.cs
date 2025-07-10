@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour
     {
         canvas.GetComponent<Animator>().SetBool("inSettings", true);
         canvas.GetComponent<Animator>().SetBool("inMain", false);
+        canvas.GetComponent<Animator>().SetBool("inCredits", false);
+        
 
         logo.GetComponent<Animator>().SetBool("inSettings", true);
         logo.GetComponent<Animator>().SetBool("inMain", false);
@@ -25,9 +27,24 @@ public class MenuManager : MonoBehaviour
     {
         canvas.GetComponent<Animator>().SetBool("inSettings", false);
         canvas.GetComponent<Animator>().SetBool("inMain", true);
+        canvas.GetComponent<Animator>().SetBool("inCredits", false);
+        
 
         logo.GetComponent<Animator>().SetBool("inSettings", false);
         logo.GetComponent<Animator>().SetBool("inMain", true);
+
+        SFXManager.instance.PlayGlobalSFX(selectClip, this.transform, 1f);
+    }
+
+    public void ToCredits()
+    {
+        canvas.GetComponent<Animator>().SetBool("inSettings", false);
+        canvas.GetComponent<Animator>().SetBool("inMain", false);
+        canvas.GetComponent<Animator>().SetBool("inCredits", true);
+        
+
+        logo.GetComponent<Animator>().SetBool("inSettings", true);
+        logo.GetComponent<Animator>().SetBool("inMain", false);
 
         SFXManager.instance.PlayGlobalSFX(selectClip, this.transform, 1f);
     }
