@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
+public enum CameraStates { Overhead, POV }
+
 public class CameraController : MonoBehaviour
 {
     [Header("main stuff")]
@@ -9,16 +11,18 @@ public class CameraController : MonoBehaviour
         [SerializeField] private Camera mainCamera;
             public Camera MainCamera => mainCamera;
         [SerializeField] private InputActionAsset input;
-
-        private enum CameraStates { Overhead, POV }
         [SerializeField] private CameraStates camState;
+            public CameraStates CamState => camState;
 
 
     [Header("rotation stuff")]
         [SerializeField] private float rotateSpeed;
+            public float RotateSpeed => rotateSpeed;
         [SerializeField] private float lookXLimit;
-        private float rotationX, rotationY;
+        [SerializeField] private float rotationX, rotationY;
+        [SerializeField] private float povX, povY;
         private InputAction mouseTurnAction;
+        private InputAction mouseDeltaAction;
         
 
     [Header("zoom stuff")]
@@ -34,6 +38,12 @@ public class CameraController : MonoBehaviour
         [SerializeField] private BoxCollider roomBoundary;
         private bool[] forwardDir = new bool[4];
         private InputAction cameraMoveAction;
+
+        [Header("possession stuff")]
+        [SerializeField] private PlayerScript currPossessed;
+        [SerializeField] private Vector3 lastCamPosition;
+        [SerializeField] private Quaternion lastCamRotation;
+        private bool savedLastPos, movedToPos;
         
 
 
@@ -45,7 +55,9 @@ public class CameraController : MonoBehaviour
         }
 
         mainCamera = GetComponent<Camera>();
+
         mouseTurnAction = input.FindAction("Turn");
+        mouseDeltaAction = input.FindAction("Look");
         mouseZoomAction = input.FindAction("Zoom");
         cameraMoveAction = input.FindAction("Move");
     }
@@ -60,18 +72,32 @@ public class CameraController : MonoBehaviour
         switch(camState)
         {
             case CameraStates.Overhead:
+                CameraMovement();
+                OverheadRotation();
+                CameraZoom();
+
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     CameraClick();
                 }
-
-                CameraMovement();
-                CameraRotation();
-                CameraZoom();
                 break;
 
             case CameraStates.POV:
-                //
+                if (currPossessed.PlayersState == PlayerState.Moving)
+                {
+                    StartPossession();
+
+                    if (!movedToPos)
+                    {
+                        POVRotation();
+                    }
+                    
+                }
+                else 
+                {
+                    StopPossession();
+                }
+                
                 break;
         }
         
@@ -92,6 +118,8 @@ public class CameraController : MonoBehaviour
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
                     hit.transform.GetComponent<PlayerScript>().GotClicked();
+                    currPossessed = hit.transform.GetComponent<PlayerScript>();
+                    camState = CameraStates.POV;
                     //Debug.Log("im hitting");
                 }
             }
@@ -203,7 +231,7 @@ public class CameraController : MonoBehaviour
         forwardDir[index] = true;
     }
 
-    void CameraRotation()
+    void OverheadRotation()
     {
         Vector2 moveAmount = mouseTurnAction.ReadValue<Vector2>();
 
@@ -220,7 +248,7 @@ public class CameraController : MonoBehaviour
 
         //move left/right
         rotationY += moveAmount.x * (rotateSpeed / 10);
-        transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
     }
 
     void CameraZoom()
@@ -245,5 +273,77 @@ public class CameraController : MonoBehaviour
 
             transform.position = new Vector3(newPosition.x, Mathf.Clamp(newPosition.y, minHeight, maxHeight), newPosition.z);
         }
+    }
+
+    void StartPossession()
+    {
+        if (!savedLastPos)
+        {
+            lastCamPosition = transform.position;
+            lastCamRotation = transform.rotation;
+            savedLastPos = true;
+            movedToPos = true;
+        }
+
+        if (movedToPos)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(currPossessed.transform.position);
+            
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, rotateSpeed / 2 * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, currPossessed.PlayerPOV.position, moveSpeed / 2 * Time.deltaTime);
+
+            // Snap to target when close enough
+            if (Vector3.Distance(transform.position, currPossessed.PlayerPOV.position) < 1f)
+            {
+                transform.rotation = targetRot;
+                transform.position = currPossessed.PlayerPOV.position;
+                movedToPos = false;
+                Debug.Log("Position fully restored.");
+            }
+        }
+        else if (!movedToPos)
+        {
+            transform.position = currPossessed.PlayerPOV.position;
+        }
+    }
+
+    void StopPossession()
+    {
+        if (savedLastPos)
+        {
+            savedLastPos = false;
+            movedToPos = true;
+        }
+
+        if (movedToPos)
+        {           
+            transform.rotation = Quaternion.Lerp(transform.rotation, lastCamRotation, rotateSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, lastCamPosition, moveSpeed * Time.deltaTime);
+
+            // Snap to target when close enough
+            if (Quaternion.Angle(transform.rotation, lastCamRotation) < 1f)
+            {
+                transform.rotation = lastCamRotation;
+                transform.position = lastCamPosition;
+                movedToPos = false;
+                camState = CameraStates.Overhead;
+            }
+        }
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;        
+    }
+
+    void POVRotation()
+    {
+        Vector2 mouseDelta = mouseDeltaAction.ReadValue<Vector2>();
+
+        //move up/down
+        povX -= mouseDelta.y * (rotateSpeed / 50);
+        povX = Mathf.Clamp(povX, -90, 90);
+
+        //move left/right
+        povY += mouseDelta.x * (rotateSpeed / 50);
+
+        transform.rotation = Quaternion.Euler(povX, povY, 0);
     }
 }
