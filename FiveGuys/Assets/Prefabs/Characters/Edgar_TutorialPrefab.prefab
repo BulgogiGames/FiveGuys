@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 853576392879718386}
   - component: {fileID: 4882649447204533739}
   m_Layer: 3
-  m_Name: Edgar
+  m_Name: Edgar_TutorialPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
