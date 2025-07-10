@@ -304,7 +304,7 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         //Place the player at the working station
-        transform.position = workingStation.position + new Vector3(0f, 2f, 0f);
+        transform.position = workingStation.position;
         player.isStopped = true;
 
         hasChosenDistraction = false;
