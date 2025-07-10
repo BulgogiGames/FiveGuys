@@ -1448,6 +1448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a31161feea411445aa8ffe0155fb66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetGameTime: 5
+  SetGameTime: 241
   panel: {fileID: 78054184796229781}
   hasGameFinished: 0
