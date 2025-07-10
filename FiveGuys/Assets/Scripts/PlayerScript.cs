@@ -312,6 +312,8 @@ public class PlayerScript : MonoBehaviour
         //Start Working again
         prevState = playerState;
         playerState = PlayerState.Working;
+
+        debugText.TurnOnAndOff(true);
     }
 
     public void GoneBathroom()
