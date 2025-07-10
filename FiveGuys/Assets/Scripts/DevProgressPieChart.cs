@@ -17,20 +17,33 @@ public class DevProgressPieChart : MonoBehaviour
 
 
     [Header("PieSlices")]
+    [SerializeField] private Transform pieChart;
     [SerializeField] private List<PieSlice> slices = new List<PieSlice>();
 
     [Header("Development")]
-    [SerializeField] private float ProgrammerProgress;
-    [SerializeField] private float AnimatorProgress;
-    [SerializeField] private float Art3DProgress;
-    [SerializeField] private float Art2DProgress;
-    [SerializeField] private float ComposerProgress;
+    [SerializeField] private float programmerProgress;
+        public float ProgrammerProgress => programmerProgress;
+    [SerializeField] private float animatorProgress;
+        public float AnimatorProgress => animatorProgress;
+    [SerializeField] private float art3DProgress;
+        public float Art3DProgress => art3DProgress;
+    [SerializeField] private float art2DProgress;
+        public float Art2DProgress => art2DProgress;
+    [SerializeField] private float composerProgress;
+        public float ComposerProgress => composerProgress;
+    
+    [SerializeField] private float total;
+    public float Total => total;
+
+    [SerializeField] private List<Image> sliceAmounts;
+        public List<Image> SliceAmounts => sliceAmounts;
 
     void Awake()
     {
         if (PC == null)
         {
             PC = this;
+            DontDestroyOnLoad(this);
         }
         else if (PC != this)
         {
@@ -45,7 +58,7 @@ public class DevProgressPieChart : MonoBehaviour
 
     public void UpdateChart()
     {
-        float total = slices.Sum(s => s.progress);
+        total = slices.Sum(s => s.progress);
         if(total <= 0)
         {
             return;
@@ -58,23 +71,23 @@ public class DevProgressPieChart : MonoBehaviour
             switch(slice.roleName)
             {
                 case "Programmer":
-                    slice.progress = ProgrammerProgress;
+                    slice.progress = programmerProgress;
                     break;
 
                 case "Animator":
-                    slice.progress = AnimatorProgress;
+                    slice.progress = animatorProgress;
                     break;
 
                 case "3DArtist":
-                    slice.progress = Art3DProgress;
+                    slice.progress = art3DProgress;
                     break;
 
                 case "2DArtist":
-                    slice.progress = Art2DProgress;
+                    slice.progress = art2DProgress;
                     break;
 
                 case "Composer":
-                    slice.progress = ComposerProgress;
+                    slice.progress = composerProgress;
                     break;
             }
 
@@ -92,24 +105,31 @@ public class DevProgressPieChart : MonoBehaviour
         switch(id)
         {
             case 1: //Programmer ID
-                ProgrammerProgress += amount;
+                programmerProgress += amount;
                 break;
 
             case 2: //Animator ID
-                AnimatorProgress += amount;
+                animatorProgress += amount;
                 break;
             
             case 3: //3D Art ID
-                Art3DProgress += amount;
+                art3DProgress += amount;
                 break;
                 
             case 4: //2D Art ID
-                Art2DProgress += amount;
+                art2DProgress += amount;
                 break;
 
             case 5: //Composer ID
-                ComposerProgress += amount;
+                composerProgress += amount;
                 break;
         }
+    }
+
+    public void SetNewLoc(Transform newParent)
+    {
+        pieChart.position = newParent.position;
+        pieChart.SetParent(newParent);
+        pieChart.localScale *= 2;
     }
 }
