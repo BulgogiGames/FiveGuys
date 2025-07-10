@@ -25,6 +25,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private int currLearningStep = 0;
     private bool tutorialActive = false;
 
+    [SerializeField] private PlayerScript player;
     void Awake()
     {
         if (TutorialMan == null)
@@ -56,6 +57,7 @@ public class TutorialManager : MonoBehaviour
         if (currentStep == 2)
         {
             camera.transform.position = new Vector3(13.25f, 7, 10.30f);
+            camera.transform.rotation = Quaternion.Euler(35f, 27f, 0);
         }
     }
 
@@ -70,6 +72,10 @@ public class TutorialManager : MonoBehaviour
         currentStep++;
 
         if (currentStep == 2)
+        {
+            ShowLearning();
+        }
+        else if (currentStep == 3)
         {
             ShowLearning();
         } else if (currentStep < tutorialSteps.Length)
@@ -88,11 +94,17 @@ public class TutorialManager : MonoBehaviour
         tutorialPanel.SetActive(false);
         Time.timeScale = 1f;
         learningTexts.text = learningSteps[currLearningStep];
+
+        if (currLearningStep == 1) //go to the distraction zone and then show continue button
+        {
+            player.ChangeState(1);
+        }
     }
 
     public void AdvanceLearning()
     {
         ShowTutorial();
+        currLearningStep++;
     }
 
     void EndTutorial()

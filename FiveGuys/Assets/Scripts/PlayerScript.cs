@@ -8,7 +8,7 @@ public enum PlayerState { Tutorial, Working, Distracted, Moving, Shitting, Clock
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private PlayerState playerState;
-        public PlayerState PlayersState => playerState;
+    public PlayerState PlayersState => playerState;
     private PlayerState lastState;
     [SerializeField] private PlayerState prevState;
 
@@ -22,11 +22,11 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private InputActionAsset input;
     [SerializeField] private Transform playerPOV;
     [SerializeField] private float playerSpeed;
-        public Transform PlayerPOV => playerPOV;
+    public Transform PlayerPOV => playerPOV;
     private InputAction moveAction;
     private Vector2 moveAmount;
 
-    
+
     //Debug Stuff
     [SerializeField] private CharacterStateDebug debugText;
 
@@ -48,7 +48,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float bathroomCountDown;
     [SerializeField] private Transform bathroomEntrance;
 
-    
+
     [Header("Animation")]
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private bool backHead;
@@ -56,6 +56,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private List<GameObject> playerHeads;
     [SerializeField] private List<bool> animTrigger;
     [SerializeField] private bool reachedLoc;
+
+    [Header("Tutorial")]
+    [SerializeField] private bool isTutorial;
 
     void Awake()
     {
@@ -68,16 +71,20 @@ public class PlayerScript : MonoBehaviour
         distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
         prevState = playerState;
 
-        // if (TutorialManager.TutorialMan != null || TutorialManager.TutorialMan.tutorialDone == false)
-        // {
-        //     playerState = PlayerState.Tutorial;
-        // }
-        // else
-        // {
-        //     playerState = PlayerState.Working;
-        // }
-        playerState = PlayerState.Working;
-        
+        if (TutorialManager.TutorialMan == null)
+        {
+            playerState = PlayerState.Working;
+        }
+        else if (TutorialManager.TutorialMan != null || TutorialManager.TutorialMan.tutorialDone == false)
+        {
+            playerState = PlayerState.Tutorial;
+        }
+        else
+        {
+            playerState = PlayerState.Working;
+        }
+
+
 
         if (backHead)
         {
@@ -102,7 +109,7 @@ public class PlayerScript : MonoBehaviour
                 playerState = prevState;
                 debugText.TurnOnAndOff(true);
             }
-        }        
+        }
 
         if (playerState != lastState)
         {
@@ -148,7 +155,7 @@ public class PlayerScript : MonoBehaviour
 
             case PlayerState.Distracted:
                 //Choose distraction
-                if (!hasChosenDistraction)
+                if (!hasChosenDistraction && !isTutorial)
                 {
                     reachedLoc = false;
                     int chosenDistraction = Random.Range(0, possibleActivities.Count);
@@ -159,6 +166,12 @@ public class PlayerScript : MonoBehaviour
                     }
 
                     target = possibleActivities[chosenDistraction];
+                    hasChosenDistraction = true;
+                }
+                else if (isTutorial)// walk to distraction zone
+                {
+                    reachedLoc = false;
+                    target = possibleActivities[0];
                     hasChosenDistraction = true;
                 }
 
@@ -230,11 +243,11 @@ public class PlayerScript : MonoBehaviour
 
     void SetAnimation(int index)
     {
-        if(playerAnimator != null)
+        if (playerAnimator != null)
         {
             if (!animTrigger[index])
             {
-                switch(index)
+                switch (index)
                 {
                     case 0:
                         animTrigger[1] = false;
@@ -249,10 +262,10 @@ public class PlayerScript : MonoBehaviour
                         animTrigger[1] = false;
                         break;
                 }
-                
+
                 animTrigger[index] = true;
             }
-            
+
             playerAnimator.SetBool("Working", animTrigger[0]);
             playerAnimator.SetBool("Walking", animTrigger[1]);
             playerAnimator.SetBool("Wanking", animTrigger[2]);
@@ -285,7 +298,7 @@ public class PlayerScript : MonoBehaviour
             UpdateDebugText("Working");
         }
 
-        
+
         prevState = playerState;
         playerState = PlayerState.Moving;
     }
@@ -366,5 +379,37 @@ public class PlayerScript : MonoBehaviour
         {
             reachedLoc = true;
         }
+    }
+
+    public void ChangeState(int stateID)
+    {
+        switch (stateID)
+        {
+            case 0: //Working
+                prevState = playerState;
+                playerState = PlayerState.Working;
+                break;
+            case 1: //Distracted
+                prevState = playerState;
+                playerState = PlayerState.Distracted;
+                break;
+            case 2: //Moving
+                prevState = playerState;
+                playerState = PlayerState.Moving;
+                break;
+            case 3: //Shitting
+                prevState = playerState;
+                playerState = PlayerState.Shitting;
+                break;
+            case 4: //ClockingIn
+                prevState = playerState;
+                playerState = PlayerState.ClockingIn;
+                break;
+            case 5: //Tutorial
+                prevState = playerState;
+                playerState = PlayerState.Tutorial;
+                break;
+        }
+
     }
 }

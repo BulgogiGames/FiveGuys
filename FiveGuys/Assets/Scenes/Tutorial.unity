@@ -1091,6 +1091,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399346405}
   m_CullTransparentMesh: 1
+--- !u!1 &409860777 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9162350891972569571, guid: d140420efa4c0b6479b04920444e03f0, type: 3}
+  m_PrefabInstance: {fileID: 1202055742}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &439320869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1479,6 +1484,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2133000779243957997, guid: 01014a05d4c5d50448ce418272533ab5, type: 3}
   m_PrefabInstance: {fileID: 612413101}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &645283550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4785779553513804170, guid: 92752100486e7d4488be2d2712da8eda, type: 3}
+  m_PrefabInstance: {fileID: 776711875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a2ec6523278e243af4b412f80eb67f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &679247957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,6 +1750,10 @@ PrefabInstance:
       propertyPath: debugText
       value: 
       objectReference: {fileID: 919033465}
+    - target: {fileID: 4785779553513804170, guid: 92752100486e7d4488be2d2712da8eda, type: 3}
+      propertyPath: isTutorial
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4785779553513804170, guid: 92752100486e7d4488be2d2712da8eda, type: 3}
       propertyPath: 'possibleActivities.Array.data[1]'
       value: 
@@ -2802,7 +2822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c39d0ef753f1534ea5c5cba9b817e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  camera: {fileID: 409860777}
   tutorialDone: 0
   tutorialSteps:
   - "Welcome to your new game dev studio! Don't worry \u2014 we're gonna show you
@@ -2810,17 +2830,21 @@ MonoBehaviour:
   - Move the camera with WASD or arrow keys. You can also rotate the camera using
     "E" and "Q".
   - Now look at me here. As you can see I'm working hard on the game right now.
+  - As I work SOOOO hard on the game, I grow restless. This means I will get easily
+    distracted and wander off.
   learningSteps:
   - 'WASD = Move                 "Q" + "E" = Rotate
 
     When you''ve gotten the
     hang of the camera press "Continue" and I''ll show you the rest!'
+  - Watch me wonder off! Look at me go!
   tutorialPanel: {fileID: 1742688238}
   tutorialText: {fileID: 1245929808}
   learningPanel: {fileID: 1741523584}
   learningTexts: {fileID: 1184244604}
   currentStep: 0
   currLearningStep: 0
+  player: {fileID: 645283550}
 --- !u!4 &1159920003
 Transform:
   m_ObjectHideFlags: 0
