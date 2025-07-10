@@ -185,6 +185,8 @@ public class PlayerScript : MonoBehaviour
                 {
                     transform.position = new Vector3(bathroomEntrance.position.x, 2, bathroomEntrance.position.z);
 
+                    Debug.Log("Player has finished shitting, going back to work: " + transform.position);
+
                     prevState = playerState;
                     playerState = PlayerState.ClockingIn;
                 }
@@ -297,8 +299,6 @@ public class PlayerScript : MonoBehaviour
         //Start Working again
         prevState = playerState;
         playerState = PlayerState.Working;
-
-        debugText.TurnOnAndOff(true);
     }
 
     public void GoneBathroom()
