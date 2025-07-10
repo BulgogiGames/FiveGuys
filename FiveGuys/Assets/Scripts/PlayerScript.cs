@@ -3,12 +3,14 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
+public enum PlayerState { Working, Distracted, Moving, Shitting, ClockingIn }
+
 public class PlayerScript : MonoBehaviour
 {
-    private enum PlayerState { Working, Distracted, Moving, Shitting, ClockingIn }
     [SerializeField] private PlayerState playerState;
-    [SerializeField] private bool isControlled;
-        public bool IsControlled { get { return isControlled; }  set { isControlled = value; } }
+        public PlayerState PlayersState => playerState;
+    private PlayerState lastState;
+    [SerializeField] private PlayerState prevState;
 
     [Header("Character Navigation")]
     [SerializeField] private Transform target;
@@ -18,13 +20,14 @@ public class PlayerScript : MonoBehaviour
     [Header("Player Movement")]
     [SerializeField] private NavMeshAgent player;
     [SerializeField] private InputActionAsset input;
+    [SerializeField] private Transform playerPOV;
+        public Transform PlayerPOV => playerPOV;
     private InputAction moveAction;
     private Vector2 moveAmount;
 
     
     //Debug Stuff
-    private PlayerState lastState;
-    [SerializeField] private CharacterStateDebug DebugText;
+    [SerializeField] private CharacterStateDebug debugText;
 
     [Header("Working Stuff")]
     [SerializeField] private int roleID;
@@ -38,16 +41,20 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float minWaitForDistraction;
     [SerializeField] private float maxWaitForDistraction;
 
-    
-    [Header("Animation")]
-    [SerializeField] private Animator playerAnimator;
-    [SerializeField] private List<bool> animTrigger;
-
     [SerializeField] private bool hasChosenDistraction;
 
     [SerializeField] private bool hasToShit;
     [SerializeField] private float bathroomCountDown;
     [SerializeField] private Transform bathroomEntrance;
+
+    
+    [Header("Animation")]
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private bool backHead;
+    [SerializeField] private Transform cameraFocus;
+    [SerializeField] private List<GameObject> playerHeads;
+    [SerializeField] private List<bool> animTrigger;
+    [SerializeField] private bool reachedLoc;
 
     void Awake()
     {
@@ -58,16 +65,37 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         distractionCountDown = Random.Range(minWaitForDistraction, maxWaitForDistraction);
+        prevState = playerState;
         playerState = PlayerState.Working;
+
+        if (backHead)
+        {
+            //just for xaviers scarf 
+            playerHeads[0].SetActive(false);
+        }
+        else if (!backHead)
+        {
+            playerHeads[1].SetActive(false);
+        }
     }
 
     void Update()
     {
-        DebugSwitchState();
+        //DebugSwitchState();
+        FaceToCamera();
+        if (playerState == PlayerState.Moving)
+        {
+            CameraIsFace();
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                playerState = prevState;
+                debugText.TurnOnAndOff(true);
+            }
+        }        
 
         if (playerState != lastState)
         {
-            if (DebugText != null)
+            if (debugText != null)
             {
                 UpdateDebugText(playerState.ToString());
             }
@@ -78,6 +106,7 @@ public class PlayerScript : MonoBehaviour
         switch (playerState)
         {
             case PlayerState.Working:
+                reachedLoc = false;
                 player.isStopped = true;
 
                 if (distractionCountDown > 0)
@@ -87,6 +116,7 @@ public class PlayerScript : MonoBehaviour
 
                 if (distractionCountDown <= 0)
                 {
+                    prevState = playerState;
                     playerState = PlayerState.Distracted;
                 }
 
@@ -103,13 +133,13 @@ public class PlayerScript : MonoBehaviour
                 }
 
                 SetAnimation(0);
-                isControlled = false;
                 break;
 
             case PlayerState.Distracted:
                 //Choose distraction
                 if(!hasChosenDistraction)
                 {
+                    reachedLoc = false;
                     int chosenDistraction = Random.Range(0, possibleActivities.Count);
 
                     if(chosenDistraction == 1)
@@ -123,16 +153,26 @@ public class PlayerScript : MonoBehaviour
                 
                 player.SetDestination(target.position);
                 player.isStopped = false;
-
-                SetAnimation(1);
-                isControlled = false;
+                
+                if (reachedLoc)
+                {
+                    SetAnimation(2);
+                }
+                else
+                {
+                    SetAnimation(1);
+                }
+                
                 break;
 
             case PlayerState.Moving:
+                reachedLoc = false;
                 PossessedMovement();
+                SetAnimation(1);
                 break;
 
             case PlayerState.Shitting:
+                reachedLoc = false;
                 player.isStopped = true;
                 
                 if(bathroomCountDown > 0)
@@ -142,13 +182,15 @@ public class PlayerScript : MonoBehaviour
 
                 if(bathroomCountDown <= 0)
                 {
-                    transform.position = new Vector3(bathroomEntrance.position.x, 1, bathroomEntrance.position.z);
+                    transform.position = new Vector3(bathroomEntrance.position.x, 2, bathroomEntrance.position.z);
 
+                    prevState = playerState;
                     playerState = PlayerState.ClockingIn;
                 }
                 break;
 
             case PlayerState.ClockingIn:
+                reachedLoc = false;
                 player.isStopped = false;
                 player.SetDestination(workingStation.position);
                 break;
@@ -159,10 +201,12 @@ public class PlayerScript : MonoBehaviour
     {
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
+            prevState = playerState;
             playerState = PlayerState.Working;
         }
         if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
+            prevState = playerState;
             playerState = PlayerState.Distracted;
         }
     }
@@ -185,8 +229,8 @@ public class PlayerScript : MonoBehaviour
                         animTrigger[2] = false;
                         break;
                     case 2:
-                        // animTrigger[0] = false;
-                        // animTrigger[1] = false;
+                        animTrigger[0] = false;
+                        animTrigger[1] = false;
                         break;
                 }
                 
@@ -195,7 +239,7 @@ public class PlayerScript : MonoBehaviour
             
             playerAnimator.SetBool("Working", animTrigger[0]);
             playerAnimator.SetBool("Walking", animTrigger[1]);
-            // playerAnimator.SetBool("Wanking", animTrigger[2]);
+            playerAnimator.SetBool("Wanking", animTrigger[2]);
         }
     }
 
@@ -204,8 +248,10 @@ public class PlayerScript : MonoBehaviour
     {
         moveAmount = moveAction.ReadValue<Vector2>();
 
-        Vector3 scaledMove = player.speed * Time.deltaTime * new Vector3(moveAmount.x, 0, moveAmount.y);
+        // Get forward/right based on current Y-rotation
+        Vector3 moveDir = transform.forward * moveAmount.y + transform.right * moveAmount.x;
 
+        Vector3 scaledMove = (player.speed * 2) * new Vector3(moveDir.x, 0f, moveDir.z) * Time.deltaTime;
         player.Move(scaledMove);
 
         Cursor.visible = false;
@@ -218,19 +264,19 @@ public class PlayerScript : MonoBehaviour
         player.ResetPath();
 
 
-        if (DebugText != null)
+        if (debugText != null)
         {
             UpdateDebugText("Working");
         }
 
         
-
+        prevState = playerState;
         playerState = PlayerState.Moving;
     }
 
     public void UpdateDebugText(string update)
     {
-        DebugText.UpdateText(update);
+        debugText.UpdateText(update);
     }
 
     public void GetBackToWork()
@@ -242,17 +288,21 @@ public class PlayerScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         //Place the player at the working station
-        transform.position = workingStation.position;
+        transform.position = workingStation.position + new Vector3(0f, 2f, 0f);
         player.isStopped = true;
 
         hasChosenDistraction = false;
 
         //Start Working again
+        prevState = playerState;
         playerState = PlayerState.Working;
+
+        debugText.TurnOnAndOff(true);
     }
 
     public void GoneBathroom()
     {
+        prevState = playerState;
         playerState = PlayerState.Shitting;
     }
 
@@ -268,5 +318,37 @@ public class PlayerScript : MonoBehaviour
         bathroomCountDown = bathroomTime;
 
         hasToShit = false;
+    }
+
+    void FaceToCamera()
+    {
+        Vector3 toCamera = CameraController.CC.MainCamera.transform.position - cameraFocus.position;
+
+        Vector3 right = Vector3.Cross(Vector3.up, toCamera.normalized * -1f).normalized;
+        Vector3 correctedY = Vector3.Cross(right, Vector3.up).normalized;
+
+        Quaternion baseRotation = Quaternion.LookRotation(Vector3.up, correctedY);
+        cameraFocus.rotation = baseRotation * Quaternion.Euler(new Vector3(90f, 0f, 0f));
+    }
+
+    void CameraIsFace()
+    {
+        debugText.TurnOnAndOff(false);
+
+        //rotate to face camera forward direction
+        Vector3 camForward = CameraController.CC.MainCamera.transform.forward;
+        camForward.y = 0f;
+        camForward.Normalize();
+        transform.rotation = Quaternion.LookRotation(camForward);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        GameObject collided = other.gameObject;
+
+        if (collided == target.gameObject)
+        {
+            reachedLoc = true;
+        }
     }
 }

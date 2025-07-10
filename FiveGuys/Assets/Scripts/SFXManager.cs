@@ -7,12 +7,13 @@ using Random = UnityEngine.Random;
 public class SFXManager : MonoBehaviour
 {
     public static SFXManager instance;
-    [SerializeField] private AudioSource sfxObject;
+    [SerializeField] private AudioSource sfxObjectLocal;
+    [SerializeField] private AudioSource sfxObjectGlobal;
 
     // Plays on component load
     void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -22,7 +23,7 @@ public class SFXManager : MonoBehaviour
     public void PlaySFX(AudioClip audioClip, Transform spawnTransform, float volume)
     {
         // Spawn in gameobject
-        AudioSource audioSource =  Instantiate(sfxObject, spawnTransform.position, Quaternion.identity);
+        AudioSource audioSource = Instantiate(sfxObjectLocal, spawnTransform.position, Quaternion.identity);
 
         // Assign audio clip
         audioSource.clip = audioClip;
@@ -46,10 +47,31 @@ public class SFXManager : MonoBehaviour
         int rand = Random.Range(0, audioClip.Length);
 
         // Spawn in gameobject
-        AudioSource audioSource =  Instantiate(sfxObject, spawnTransform.position, Quaternion.identity);
+        AudioSource audioSource = Instantiate(sfxObjectLocal, spawnTransform.position, Quaternion.identity);
 
         // Assign audio clip
         audioSource.clip = audioClip[rand];
+
+        // Assign audio volume
+        audioSource.volume = volume;
+
+        // Play audio clip
+        audioSource.Play();
+
+        // Get length of audio clip
+        float clipLength = audioSource.clip.length;
+
+        // Destroy object after time elapsed
+        Destroy(audioSource.gameObject, clipLength);
+    }
+    
+    public void PlayGlobalSFX(AudioClip audioClip, Transform spawnTransform, float volume)
+    {
+        // Spawn in gameobject
+        AudioSource audioSource = Instantiate(sfxObjectGlobal, spawnTransform.position, Quaternion.identity);
+
+        // Assign audio clip
+        audioSource.clip = audioClip;
 
         // Assign audio volume
         audioSource.volume = volume;
