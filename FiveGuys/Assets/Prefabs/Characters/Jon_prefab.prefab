@@ -664,10 +664,6 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[3]'
       value: 
       objectReference: {fileID: 2100000, guid: b29f0e4fdcf162e468c22807488e99e9, type: 2}
-    - target: {fileID: 2996800981790283985, guid: 157011958c9b8534fba9c166b1f1eab1, type: 3}
-      propertyPath: 'm_Materials.Array.data[7]'
-      value: 
-      objectReference: {fileID: 2100000, guid: eb84623cdbbbd8f4cb2e278158a3bb34, type: 2}
     - target: {fileID: 3645165739201624324, guid: 157011958c9b8534fba9c166b1f1eab1, type: 3}
       propertyPath: m_Name
       value: Jon Table
